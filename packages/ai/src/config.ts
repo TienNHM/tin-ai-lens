@@ -1,5 +1,8 @@
 export type AiProviderName = "openai" | "anthropic" | "google" | "openrouter";
 
+/** Providers supported for community BYOK (extension). */
+export type ByokProviderName = "openai" | "google";
+
 export interface AiRuntimeConfig {
   provider: AiProviderName;
   model: string;
@@ -17,11 +20,11 @@ export interface AiRuntimeConfig {
   };
 }
 
-const DEFAULT_MODELS: Record<AiProviderName, string> = {
-  openai: "gpt-4.1-mini",
+export const DEFAULT_MODELS: Record<AiProviderName, string> = {
+  openai: "gpt-4o-mini",
   anthropic: "claude-sonnet-4-20250514",
   google: "gemini-2.5-flash",
-  openrouter: "openai/gpt-4.1-mini",
+  openrouter: "openai/gpt-4o-mini",
 };
 
 function readProvider(raw: string | undefined): AiProviderName {
@@ -37,6 +40,37 @@ function readProvider(raw: string | undefined): AiProviderName {
   throw new Error(
     `Unsupported AI_PROVIDER "${raw}". Use openai | anthropic | google | openrouter.`,
   );
+}
+
+/**
+ * Build runtime config from a user-supplied API key (BYOK / extension).
+ * Does not read process.env.
+ */
+export function configFromUserKey(input: {
+  provider: ByokProviderName;
+  apiKey: string;
+  model?: string;
+  timeoutMs?: number;
+}): AiRuntimeConfig {
+  const apiKey = input.apiKey.trim();
+  if (!apiKey) {
+    throw new Error("API key is required");
+  }
+
+  const provider = input.provider;
+  return {
+    provider,
+    model: input.model?.trim() || DEFAULT_MODELS[provider],
+    // Browser BYOK: OpenAI/Gemini + long pages often exceed 45s from VN networks.
+    timeoutMs: input.timeoutMs ?? 120_000,
+    // Keep prompts smaller so completion finishes before popup/network stalls.
+    maxMarkdownChars: 12_000,
+    minMarkdownChars: 120,
+    apiKeys: {
+      openai: provider === "openai" ? apiKey : undefined,
+      google: provider === "google" ? apiKey : undefined,
+    },
+  };
 }
 
 /**

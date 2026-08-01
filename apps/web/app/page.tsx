@@ -124,9 +124,13 @@ export default function HomePage() {
           </div>
 
           <p className="mt-10 text-sm leading-relaxed text-ink-soft">
-            Local MVP: load unpacked extension from{" "}
-            <code className="text-pine">apps/extension/build/chrome-mv3-dev</code>
-            , run API on <code className="text-pine">localhost:3001</code>.
+            Free for the community: bring your own Gemini or OpenAI API key in
+            extension Settings. Analysis runs on your device against your
+            provider — see our{" "}
+            <a href="/privacy" className="text-pine hover:underline">
+              Privacy Policy
+            </a>
+            .
           </p>
         </div>
       </section>
@@ -150,13 +154,16 @@ export default function HomePage() {
       </section>
 
       <footer className="border-t border-line px-6 py-10">
-        <div className="mx-auto flex max-w-5xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-display text-lg font-semibold tracking-tight">
             TinAiLens
           </p>
-          <p className="text-sm text-ink-soft">
-            Think Before You Trust. Explain. Never judge.
-          </p>
+          <div className="flex flex-wrap items-center gap-4 text-sm text-ink-soft">
+            <a href="/privacy" className="transition hover:text-pine">
+              Privacy
+            </a>
+            <span>Think Before You Trust. Explain. Never judge.</span>
+          </div>
         </div>
       </footer>
     </main>

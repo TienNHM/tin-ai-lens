@@ -1,5 +1,12 @@
 export { analyzeContent, type AnalyzeContentOptions } from "./analyze.js";
-export { loadAiConfig, type AiProviderName, type AiRuntimeConfig } from "./config.js";
+export {
+  configFromUserKey,
+  loadAiConfig,
+  DEFAULT_MODELS,
+  type AiProviderName,
+  type AiRuntimeConfig,
+  type ByokProviderName,
+} from "./config.js";
 export { createLanguageModel } from "./providers/create-model.js";
 export {
   ANALYZE_PROMPT_VERSION,

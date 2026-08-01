@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v3";
 
 export const AnalysisStatusSchema = z.enum(["ready", "insufficient", "error"]);
 
