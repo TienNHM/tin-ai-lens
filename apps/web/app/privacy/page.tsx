@@ -102,12 +102,17 @@ export default function PrivacyPage() {
           </h2>
           <p>
             Local data remains until you clear it or uninstall. Provider
-            retention follows their policies. Contact:{" "}
+            retention follows their policies.
+          </p>
+          <p>
+            Contact:{" "}
             <a
               className="text-pine hover:underline"
-              href="mailto:privacy@tinailens.com"
+              href="https://www.facebook.com/tiennhm.vn"
+              target="_blank"
+              rel="noreferrer"
             >
-              privacy@tinailens.com
+              facebook.com/tiennhm.vn
             </a>
             . Site:{" "}
             <a

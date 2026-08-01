@@ -75,7 +75,7 @@ After GitHub Pages is enabled:
 
 (Or your custom domain + `/privacy/`.)
 
-Update the contact email on that page if you use a different address than `privacy@tinailens.com`.
+Update the contact details on that page if needed. Current contact: [facebook.com/tiennhm.vn](https://www.facebook.com/tiennhm.vn).
 
 ## Assets checklist
 

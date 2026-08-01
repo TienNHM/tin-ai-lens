@@ -164,6 +164,14 @@ export default function HomePage() {
             <Link href="/privacy/" className="transition hover:text-pine">
               Privacy
             </Link>
+            <a
+              href="https://www.facebook.com/tiennhm.vn"
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:text-pine"
+            >
+              Facebook
+            </a>
             <span>Think Before You Trust. Explain. Never judge.</span>
           </div>
         </div>
