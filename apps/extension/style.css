@@ -160,6 +160,91 @@ body {
   letter-spacing: 0.04em;
 }
 
+.metric-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.info-tip {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0;
+  cursor: help;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.info-tip-bubble {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 220px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: #f7f6f3;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.4;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 120ms ease;
+  z-index: 20;
+  box-shadow: 0 8px 24px rgba(28, 27, 25, 0.18);
+}
+
+.info-tip-bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
+}
+
+.info-tip:hover .info-tip-bubble,
+.info-tip:focus-visible .info-tip-bubble {
+  opacity: 1;
+  visibility: visible;
+}
+
+.info-tip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.confidence .info-tip-bubble {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+.confidence .info-tip-bubble::after {
+  left: auto;
+  right: 8px;
+  transform: none;
+}
+
 .score-value {
   font-size: 28px;
   font-weight: 650;

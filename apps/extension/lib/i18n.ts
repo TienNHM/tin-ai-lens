@@ -33,7 +33,9 @@ export type MessageKey =
   | "signalMissingAuthor"
   | "langVi"
   | "langEn"
-  | "language";
+  | "language"
+  | "trustScoreTooltip"
+  | "confidenceTooltip";
 
 const vi: Record<MessageKey, string> = {
   tagline: "Think Before You Trust.",
@@ -65,6 +67,10 @@ const vi: Record<MessageKey, string> = {
   langVi: "VI",
   langEn: "EN",
   language: "Ngôn ngữ",
+  trustScoreTooltip:
+    "Mức độ thận trọng nên có dựa trên tín hiệu hiện có (0–100). Điểm thấp ≠ giả; điểm cao ≠ đúng. Luôn đọc kèm lý do.",
+  confidenceTooltip:
+    "Độ chắc của chính bài phân tích này (độ bao phủ, chất lượng trích xuất, độ rõ của tín hiệu). Điểm giữa + độ tin thấp vẫn hợp lệ.",
 };
 
 const en: Record<MessageKey, string> = {
@@ -97,6 +103,10 @@ const en: Record<MessageKey, string> = {
   langVi: "VI",
   langEn: "EN",
   language: "Language",
+  trustScoreTooltip:
+    "How much caution appears warranted from available signals (0–100). Low ≠ false; high ≠ true. Always read the reasons.",
+  confidenceTooltip:
+    "How sure this analysis itself is (coverage, extraction quality, signal clarity). A mid score with low confidence is valid.",
 };
 
 const catalogs: Record<Locale, Record<MessageKey, string>> = { vi, en };

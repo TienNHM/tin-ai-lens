@@ -1,5 +1,6 @@
 import type { TrustReport, TrustSignal } from "@tin-ai-lens/types";
 
+import { MetricLabel } from "~/components/MetricLabel";
 import {
   labelClaimType,
   labelSeverity,
@@ -52,11 +53,17 @@ export function TrustReportView({
       <section className="score-block">
         <div className="score-row">
           <div>
-            <div className="eyebrow">{t(locale, "trustScore")}</div>
+            <MetricLabel
+              label={t(locale, "trustScore")}
+              tooltip={t(locale, "trustScoreTooltip")}
+            />
             <div className="score-value">{scoreLabel}</div>
           </div>
           <div className="confidence">
-            <div className="eyebrow">{t(locale, "confidence")}</div>
+            <MetricLabel
+              label={t(locale, "confidence")}
+              tooltip={t(locale, "confidenceTooltip")}
+            />
             <div className="confidence-value">{confidencePct}%</div>
           </div>
         </div>
