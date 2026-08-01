@@ -35,7 +35,14 @@ export type MessageKey =
   | "langEn"
   | "language"
   | "trustScoreTooltip"
-  | "confidenceTooltip";
+  | "confidenceTooltip"
+  | "history"
+  | "historyEmpty"
+  | "historyPrivacy"
+  | "clearHistory"
+  | "delete"
+  | "back"
+  | "viewingHistory";
 
 const vi: Record<MessageKey, string> = {
   tagline: "Think Before You Trust.",
@@ -71,6 +78,14 @@ const vi: Record<MessageKey, string> = {
     "Mức độ thận trọng nên có dựa trên tín hiệu hiện có (0–100). Điểm thấp ≠ giả; điểm cao ≠ đúng. Luôn đọc kèm lý do.",
   confidenceTooltip:
     "Độ chắc của chính bài phân tích này (độ bao phủ, chất lượng trích xuất, độ rõ của tín hiệu). Điểm giữa + độ tin thấp vẫn hợp lệ.",
+  history: "Lịch sử",
+  historyEmpty: "Chưa có phân tích nào được lưu trên máy này.",
+  historyPrivacy:
+    "Chỉ lưu Trust Report trên máy bạn — không lưu nội dung trang, không đồng bộ cloud.",
+  clearHistory: "Xóa tất cả",
+  delete: "Xóa",
+  back: "Quay lại",
+  viewingHistory: "Đang xem từ lịch sử",
 };
 
 const en: Record<MessageKey, string> = {
@@ -107,6 +122,14 @@ const en: Record<MessageKey, string> = {
     "How much caution appears warranted from available signals (0–100). Low ≠ false; high ≠ true. Always read the reasons.",
   confidenceTooltip:
     "How sure this analysis itself is (coverage, extraction quality, signal clarity). A mid score with low confidence is valid.",
+  history: "History",
+  historyEmpty: "No analyses saved on this device yet.",
+  historyPrivacy:
+    "Only Trust Reports are stored on this device — no page body, no cloud sync.",
+  clearHistory: "Clear all",
+  delete: "Delete",
+  back: "Back",
+  viewingHistory: "Viewing from history",
 };
 
 const catalogs: Record<Locale, Record<MessageKey, string>> = { vi, en };
