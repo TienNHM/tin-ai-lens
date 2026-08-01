@@ -1,3 +1,5 @@
+import { config as loadEnv } from "dotenv";
+import { resolve } from "node:path";
 import "reflect-metadata";
 
 import { Logger } from "@nestjs/common";
@@ -6,6 +8,9 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { Logger as PinoLogger } from "nestjs-pino";
 
 import { AppModule } from "./app.module";
+
+// Load apps/api/.env regardless of process cwd (pnpm filter / nest watch).
+loadEnv({ path: resolve(__dirname, "../.env") });
 
 function parseCorsOrigin(raw: string | undefined): boolean | string | string[] {
   if (!raw || raw === "*") return true;
