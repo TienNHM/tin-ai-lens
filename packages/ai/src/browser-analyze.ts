@@ -1,10 +1,8 @@
-import {
-  AnalyzeResponseSchema,
-  TrustReportSchema,
-  type AnalyzeRequest,
-  type AnalyzeResponse,
-  type ModelMeta,
-  type TrustReport,
+import type {
+  AnalyzeRequest,
+  AnalyzeResponse,
+  ModelMeta,
+  TrustReport,
 } from "@tin-ai-lens/types";
 
 import {
@@ -24,8 +22,7 @@ import { truncateMarkdown } from "./truncate.js";
 
 /**
  * Browser-safe analyze path for extension BYOK.
- * Uses fetch to Gemini/OpenAI only — does not import the Vercel AI SDK
- * (which pulls Node/gateway code and blows up Chrome extension popups).
+ * Uses fetch only — no Vercel AI SDK, no Zod runtime (Plasmo/Parcel stubs zod broken).
  */
 
 const JSON_OUTPUT_HINT = `Respond with a single JSON object only (no markdown fences) matching this shape:
@@ -51,13 +48,13 @@ function insufficientResponse(
   requestId: string,
   modelMeta: ModelMeta | null,
 ): AnalyzeResponse {
-  return AnalyzeResponseSchema.parse({
+  return {
     status: "insufficient",
     report: null,
     error: null,
     requestId,
     modelMeta,
-  });
+  };
 }
 
 function errorResponse(
@@ -66,13 +63,13 @@ function errorResponse(
   message: string,
   modelMeta: ModelMeta | null,
 ): AnalyzeResponse {
-  return AnalyzeResponseSchema.parse({
+  return {
     status: "error",
     report: null,
     error: { code, message },
     requestId,
     modelMeta,
-  });
+  };
 }
 
 function buildModelMeta(
@@ -116,9 +113,42 @@ function applyCoverageHints(
   };
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/** Soft structural check — avoids Zod in the Plasmo bundle. */
+function softParseTrustReport(raw: unknown): TrustReport {
+  if (!isRecord(raw)) {
+    throw new Error("Report is not an object");
+  }
+  if (typeof raw.summary !== "string" || raw.summary.length < 1) {
+    throw new Error("Report missing summary");
+  }
+  if (typeof raw.confidence !== "number") {
+    throw new Error("Report missing confidence");
+  }
+  if (!isRecord(raw.signals) || !isRecord(raw.uncertainty) || !isRecord(raw.coverage)) {
+    throw new Error("Report missing signals/uncertainty/coverage");
+  }
+  if (!Array.isArray(raw.reasons) || !Array.isArray(raw.claims) || !Array.isArray(raw.suggestions)) {
+    throw new Error("Report missing reasons/claims/suggestions arrays");
+  }
+  if (raw.trustScore !== null && typeof raw.trustScore !== "number") {
+    throw new Error("Invalid trustScore");
+  }
+  if (raw.trustScore !== null && raw.reasons.length < 1) {
+    throw new Error("trustScore requires at least one reason");
+  }
+  if (!Array.isArray(raw.warnings)) {
+    raw.warnings = [];
+  }
+  return raw as unknown as TrustReport;
+}
+
 function finalizeReport(raw: unknown, sourceMarkdown: string): TrustReport {
   assertNoBannedPhrases(raw);
-  const parsed = TrustReportSchema.parse(raw);
+  const parsed = softParseTrustReport(raw);
   return groundTrustReport(parsed, sourceMarkdown);
 }
 
@@ -323,13 +353,13 @@ export async function analyzeContentInBrowser(
         truncated.coverageRatio,
         locale,
       );
-      return AnalyzeResponseSchema.parse({
+      return {
         status: "ready",
         report,
         error: null,
         requestId: request.requestId,
         modelMeta: buildModelMeta(config, lastUsage, Date.now() - started),
-      });
+      };
     } catch {
       attempt = await generateRawJson({
         config,
@@ -346,21 +376,21 @@ export async function analyzeContentInBrowser(
           truncated.coverageRatio,
           locale,
         );
-        return AnalyzeResponseSchema.parse({
+        return {
           status: "ready",
           report,
           error: null,
           requestId: request.requestId,
           modelMeta: buildModelMeta(config, lastUsage, Date.now() - started),
-        });
+        };
       } catch {
-        return AnalyzeResponseSchema.parse({
+        return {
           status: "insufficient",
           report: null,
           error: null,
           requestId: request.requestId,
           modelMeta: buildModelMeta(config, lastUsage, Date.now() - started),
-        });
+        };
       }
     }
   } catch (err) {

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v3";
 
 import { AnalysisStatusSchema } from "./enums.js";
 import { ModelMetaSchema, TrustReportSchema } from "./trust-report.js";
