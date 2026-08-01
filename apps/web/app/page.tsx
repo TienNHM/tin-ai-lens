@@ -34,6 +34,10 @@ const PRODUCT_SHOTS = [
   },
 ] as const;
 
+const GITHUB_REPO = "https://github.com/TienNHM/tin-ai-lens";
+const GITHUB_RELEASES = `${GITHUB_REPO}/releases/latest`;
+const GITHUB_DOWNLOAD = `${GITHUB_REPO}/releases/latest/download/chrome-mv3-prod.zip`;
+
 function HeroLensVisual() {
   return (
     <div
@@ -68,6 +72,14 @@ export default function HomePage() {
               <a href="#install" className="transition-colors hover:text-pine">
                 Install
               </a>
+              <a
+                href={GITHUB_REPO}
+                target="_blank"
+                rel="noreferrer"
+                className="transition-colors hover:text-pine"
+              >
+                GitHub
+              </a>
             </div>
           </nav>
 
@@ -85,10 +97,10 @@ export default function HomePage() {
 
             <div className="animate-rise-delay-2 mt-9 flex flex-wrap items-center gap-3">
               <a
-                href="#install"
+                href={GITHUB_DOWNLOAD}
                 className="inline-flex items-center justify-center rounded-full bg-pine px-5 py-3 text-sm font-semibold text-white transition hover:bg-pine-deep"
               >
-                Get the Chrome extension
+                Download for Chrome
               </a>
               <a
                 href="#product"
@@ -204,13 +216,51 @@ export default function HomePage() {
             Get TinAiLens for Chrome
           </h2>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">
-            Chrome Web Store listing is in review. When it is live, install from
-            the Store — free community BYOK, no TinAiLens account.
+            Download the latest release zip from GitHub, then load it unpacked
+            in Chrome. Free community BYOK — no TinAiLens account. Chrome Web
+            Store listing is also in review.
           </p>
-          <p className="mt-8 text-sm text-ink-soft">
-            Prefer source? Follow the monorepo README to load the unpacked
-            production build while the listing is pending.
-          </p>
+
+          <div className="mt-9 flex flex-wrap items-center gap-3">
+            <a
+              href={GITHUB_DOWNLOAD}
+              className="inline-flex items-center justify-center rounded-full bg-pine px-5 py-3 text-sm font-semibold text-white transition hover:bg-pine-deep"
+            >
+              Download chrome-mv3-prod.zip
+            </a>
+            <a
+              href={GITHUB_RELEASES}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-line px-5 py-3 text-sm font-medium text-ink transition hover:border-pine/40"
+            >
+              All releases
+            </a>
+            <a
+              href={GITHUB_REPO}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-line px-5 py-3 text-sm font-medium text-ink transition hover:border-pine/40"
+            >
+              View on GitHub
+            </a>
+          </div>
+
+          <ol className="mt-10 space-y-3 text-sm leading-relaxed text-ink-soft">
+            <li>
+              <span className="font-semibold text-ink">1.</span> Unzip the
+              download.
+            </li>
+            <li>
+              <span className="font-semibold text-ink">2.</span> Chrome →
+              Extensions → Developer mode → Load unpacked → select the unzipped
+              folder.
+            </li>
+            <li>
+              <span className="font-semibold text-ink">3.</span> Open Settings in
+              TinAiLens → paste a Gemini or OpenAI API key → Analyze an article.
+            </li>
+          </ol>
         </div>
       </section>
 
@@ -241,6 +291,22 @@ export default function HomePage() {
             <Link href="/privacy/" className="transition hover:text-pine">
               Privacy
             </Link>
+            <a
+              href={GITHUB_REPO}
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:text-pine"
+            >
+              GitHub
+            </a>
+            <a
+              href={GITHUB_RELEASES}
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:text-pine"
+            >
+              Releases
+            </a>
             <a
               href="https://www.facebook.com/tiennhm.vn"
               target="_blank"
