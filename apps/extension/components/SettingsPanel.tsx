@@ -13,13 +13,20 @@ import {
   type ByokProvider,
 } from "~/lib/byok";
 import { t } from "~/lib/i18n";
+import type { UiMode } from "~/lib/ui-mode";
 
 export function SettingsPanel({
   locale,
+  surface,
+  uiMode,
+  onUiModeChange,
   onBack,
   onSaved,
 }: {
   locale: Locale;
+  surface: UiMode;
+  uiMode: UiMode;
+  onUiModeChange: (mode: UiMode) => void;
   onBack: () => void;
   onSaved: () => void;
 }) {
@@ -58,7 +65,6 @@ export function SettingsPanel({
         setSavedMasked(maskApiKey(keyToSave));
         setApiKey("");
       } else if (savedMasked) {
-        // Provider-only update: reload existing key
         const existing = await getByokSettings();
         if (!existing) {
           setStatus(t(locale, "byokKeyRequired"));
@@ -88,6 +94,14 @@ export function SettingsPanel({
     }
   };
 
+  const onModeSelect = (mode: UiMode) => {
+    if (mode === uiMode && mode === surface) return;
+    if (mode === "popup" && surface === "sidepanel") {
+      setStatus(t(locale, "uiModeSwitchedPopup"));
+    }
+    onUiModeChange(mode);
+  };
+
   return (
     <div className="settings">
       <div className="history-toolbar">
@@ -98,6 +112,27 @@ export function SettingsPanel({
 
       <h2 className="history-title">{t(locale, "settings")}</h2>
       <p className="history-note">{t(locale, "byokPrivacy")}</p>
+
+      <fieldset className="field field-fieldset">
+        <legend className="field-label">{t(locale, "uiModeLabel")}</legend>
+        <p className="settings-help">{t(locale, "uiModeHint")}</p>
+        <div className="mode-switch" role="group">
+          <button
+            type="button"
+            className={`mode-btn ${uiMode === "sidepanel" ? "active" : ""}`}
+            onClick={() => onModeSelect("sidepanel")}
+          >
+            {t(locale, "uiModeSidepanel")}
+          </button>
+          <button
+            type="button"
+            className={`mode-btn ${uiMode === "popup" ? "active" : ""}`}
+            onClick={() => onModeSelect("popup")}
+          >
+            {t(locale, "uiModePopup")}
+          </button>
+        </div>
+      </fieldset>
 
       <label className="field">
         <span className="field-label">{t(locale, "byokProvider")}</span>

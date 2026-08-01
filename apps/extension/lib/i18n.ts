@@ -61,7 +61,14 @@ export type MessageKey =
   | "byokMissing"
   | "byokPermissionDenied"
   | "byokConnected"
-  | "byokSetup";
+  | "byokSetup"
+  | "uiModeLabel"
+  | "uiModePopup"
+  | "uiModeSidepanel"
+  | "uiModeHint"
+  | "uiModeSwitchPopup"
+  | "uiModeSwitchSidepanel"
+  | "uiModeSwitchedPopup";
 
 const vi: Record<MessageKey, string> = {
   tagline: "Think Before You Trust.",
@@ -126,6 +133,14 @@ const vi: Record<MessageKey, string> = {
     "Cần cho phép quyền truy cập API (Gemini/OpenAI) trong hộp thoại Chrome để phân tích.",
   byokConnected: "Đã kết nối",
   byokSetup: "Kết nối API key",
+  uiModeLabel: "Giao diện khi bấm icon",
+  uiModePopup: "Popup",
+  uiModeSidepanel: "Sidebar (bên phải)",
+  uiModeHint:
+    "Sidebar giống Copilot — đọc báo cáo cạnh trang. Popup gọn, đóng khi click ra ngoài.",
+  uiModeSwitchPopup: "Dùng popup",
+  uiModeSwitchSidepanel: "Dùng sidebar",
+  uiModeSwitchedPopup: "Đã chuyển sang popup. Bấm lại icon TinAiLens trên thanh công cụ.",
 };
 
 const en: Record<MessageKey, string> = {
@@ -191,6 +206,14 @@ const en: Record<MessageKey, string> = {
     "Allow API access (Gemini/OpenAI) in the Chrome prompt so analysis can run.",
   byokConnected: "Connected",
   byokSetup: "Connect API key",
+  uiModeLabel: "Open as",
+  uiModePopup: "Popup",
+  uiModeSidepanel: "Sidebar (right)",
+  uiModeHint:
+    "Sidebar stays beside the page like Copilot. Popup is compact and closes on outside click.",
+  uiModeSwitchPopup: "Use popup",
+  uiModeSwitchSidepanel: "Use sidebar",
+  uiModeSwitchedPopup: "Switched to popup. Click the TinAiLens toolbar icon again.",
 };
 
 const catalogs: Record<Locale, Record<MessageKey, string>> = { vi, en };

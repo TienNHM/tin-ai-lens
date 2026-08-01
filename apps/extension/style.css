@@ -22,6 +22,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font);
@@ -29,11 +30,58 @@ body {
   line-height: 1.45;
 }
 
+#__plasmo {
+  min-height: 100%;
+}
+
 .shell {
+  width: 100%;
+  overflow: auto;
+  padding: 16px 18px 28px;
+  box-sizing: border-box;
+}
+
+.shell-popup {
   width: 380px;
   max-height: 580px;
-  overflow: auto;
   padding: 16px;
+}
+
+.shell-sidepanel {
+  min-height: 100vh;
+  max-height: none;
+}
+
+.mode-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.mode-btn {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.mode-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.field-fieldset {
+  border: 0;
+  margin: 0 0 14px;
+  padding: 0;
+  min-width: 0;
 }
 
 .header {

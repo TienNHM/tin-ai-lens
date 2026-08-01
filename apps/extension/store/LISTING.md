@@ -108,6 +108,16 @@ Stores the user’s locale preference, optional BYOK API key, and local Trust Re
 Lưu ngôn ngữ, API key BYOK (nếu có) và lịch sử Trust Report trên máy qua chrome.storage.local. TinAiLens không đồng bộ cloud dữ liệu này.
 ```
 
+### 5c. Permission: tabs
+
+```
+Used to identify the active article tab’s URL when Analyze is clicked from the Side Panel (Side Panel clicks do not grant activeTab). We only analyze http(s) pages the user already has open — no browsing-history collection beyond that tab.
+```
+
+```
+Dùng để đọc URL tab đang xem khi bấm Phân tích từ Side Panel (click trong Side Panel không được activeTab). Chỉ phân tích trang http(s) đang mở — không thu thập lịch sử duyệt rộng.
+```
+
 ### 6. Host permissions / Quyền phía máy chủ
 
 Manifest dùng **`optional_host_permissions`** (không khai sẵn `host_permissions`).  
@@ -259,4 +269,4 @@ TinAiLens analyzes the active tab only on explicit user gesture. Users bring the
 
 ## Version
 
-Bump `version` in `apps/extension/package.json` for each Store upload (e.g. `0.1.1` → `0.1.2`).
+Bump `version` in `apps/extension/package.json` for each Store upload (e.g. `0.1.2` → `0.1.3`).
