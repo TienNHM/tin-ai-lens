@@ -8,17 +8,25 @@ export const config: PlasmoCSConfig = {
   run_at: "document_idle",
 };
 
-type ExtractRequest = { type: "TINAILENS_EXTRACT" };
-type ExtractResponse =
-  | { ok: true; data: ExtractedPagePayload }
+type BridgeRequest =
+  | { type: "TINAILENS_PING" }
+  | { type: "TINAILENS_EXTRACT" };
+
+type BridgeResponse =
+  | { ok: true; pong?: true; data?: ExtractedPagePayload }
   | { ok: false; error: string };
 
 chrome.runtime.onMessage.addListener(
   (
-    message: ExtractRequest,
+    message: BridgeRequest,
     _sender,
-    sendResponse: (response: ExtractResponse) => void,
+    sendResponse: (response: BridgeResponse) => void,
   ) => {
+    if (message?.type === "TINAILENS_PING") {
+      sendResponse({ ok: true, pong: true });
+      return;
+    }
+
     if (message?.type !== "TINAILENS_EXTRACT") {
       return;
     }
@@ -40,8 +48,6 @@ chrome.runtime.onMessage.addListener(
         error: err instanceof Error ? err.message : "Extraction failed",
       });
     }
-
-    return true;
   },
 );
 
