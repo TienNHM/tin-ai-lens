@@ -2,7 +2,7 @@
   "name": "@tin-ai-lens/ai",
   "version": "0.0.0",
   "private": true,
-  "description": "Provider-agnostic AI analysis for TinAiLens (scaffold)",
+  "description": "Provider-agnostic AI analysis for TinAiLens",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -16,14 +16,22 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsc -p tsconfig.test.json && node --test dist-test/policy/banned-phrases.test.js dist-test/grounding/snippets.test.js dist-test/truncate.test.js",
     "lint": "eslint src --max-warnings 0",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist dist-test"
   },
   "dependencies": {
-    "@tin-ai-lens/types": "workspace:*"
+    "@ai-sdk/anthropic": "^4.0.27",
+    "@ai-sdk/google": "^4.0.31",
+    "@ai-sdk/openai": "^4.0.27",
+    "@openrouter/ai-sdk-provider": "^3.0.0",
+    "@tin-ai-lens/types": "workspace:*",
+    "ai": "^7.0.47",
+    "zod": "^3.25.56"
   },
   "devDependencies": {
     "@tin-ai-lens/config": "workspace:*",
+    "@types/node": "^22.15.29",
     "eslint": "^9.28.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.8.3",

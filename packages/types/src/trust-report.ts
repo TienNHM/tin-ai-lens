@@ -72,28 +72,28 @@ export const TrustSignalsSchema = z.object({
   missingAuthor: TrustSignalSchema,
 });
 
-export const TrustReportSchema = z
-  .object({
-    trustScore: z.number().int().min(0).max(100).nullable(),
-    confidence: z.number().min(0).max(1),
-    summary: z.string().min(1).max(2000),
-    reasons: z.array(TrustReasonSchema).max(12),
-    signals: TrustSignalsSchema,
-    claims: z.array(ClaimSchema).max(12),
-    suggestions: z.array(SuggestionSchema).max(8),
-    uncertainty: UncertaintySchema,
-    coverage: CoverageSchema,
-    warnings: z.array(z.string().min(1).max(300)).max(10),
-  })
-  .superRefine((val, ctx) => {
-    if (val.trustScore !== null && val.reasons.length < 1) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "trustScore requires at least one reason",
-        path: ["reasons"],
-      });
-    }
-  });
+export const TrustReportObjectSchema = z.object({
+  trustScore: z.number().int().min(0).max(100).nullable(),
+  confidence: z.number().min(0).max(1),
+  summary: z.string().min(1).max(2000),
+  reasons: z.array(TrustReasonSchema).max(12),
+  signals: TrustSignalsSchema,
+  claims: z.array(ClaimSchema).max(12),
+  suggestions: z.array(SuggestionSchema).max(8),
+  uncertainty: UncertaintySchema,
+  coverage: CoverageSchema,
+  warnings: z.array(z.string().min(1).max(300)).max(10),
+});
+
+export const TrustReportSchema = TrustReportObjectSchema.superRefine((val, ctx) => {
+  if (val.trustScore !== null && val.reasons.length < 1) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "trustScore requires at least one reason",
+      path: ["reasons"],
+    });
+  }
+});
 
 export type EvidenceSnippet = z.infer<typeof EvidenceSnippetSchema>;
 export type TrustSignal = z.infer<typeof TrustSignalSchema>;

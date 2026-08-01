@@ -42,5 +42,10 @@ pnpm test
 ## Current slice
 
 - Turborepo + pnpm workspace scaffolded
-- `@tin-ai-lens/types` implements Trust Report schemas from `09-AI.md`
-- `ai` / `ui` / `utils` / apps are placeholders for the next slices
+- `@tin-ai-lens/types` — Trust Report + analyze I/O Zod schemas
+- `@tin-ai-lens/ai` — provider-agnostic `analyzeContent` (OpenAI / Anthropic / Gemini / OpenRouter), policy filter, grounding, versioned prompts
+- `ui` / `utils` / apps remain placeholders for the next slices
+
+### AI env (server-only)
+
+Copy `packages/ai/.env.example`. Set `AI_PROVIDER` + the matching API key. Never put keys in the extension.
