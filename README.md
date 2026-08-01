@@ -41,22 +41,22 @@ pnpm test
 
 ## Current slice
 
-- Turborepo + pnpm workspace scaffolded
-- `@tin-ai-lens/types` — Trust Report + analyze I/O Zod schemas
-- `@tin-ai-lens/ai` — provider-agnostic `analyzeContent` (OpenAI / Anthropic / Gemini / OpenRouter), policy filter, grounding, versioned prompts
-- `@tin-ai-lens/api` — NestJS `POST /analyze` + `GET /health` + Swagger `/docs` (ephemeral, rate-limited)
-- Extension / web / ui remain next
+- `@tin-ai-lens/types` — Zod Trust Report schemas
+- `@tin-ai-lens/ai` — provider-agnostic analysis
+- `@tin-ai-lens/api` — NestJS `POST /analyze`
+- `@tin-ai-lens/extension` — Plasmo popup: extract → analyze → Trust Report UI
 
-### Run API
+### Run locally
 
 ```bash
-cp apps/api/.env.example apps/api/.env
-# set AI_PROVIDER + API key
+# API
+cp apps/api/.env.example apps/api/.env   # set AI_PROVIDER + key
 pnpm --filter @tin-ai-lens/api dev
+
+# Extension (another terminal)
+cp apps/extension/.env.example apps/extension/.env
+pnpm --filter @tin-ai-lens/extension dev
+# Chrome → chrome://extensions → Load unpacked → apps/extension/build/chrome-mv3-dev
 ```
 
-- Health: `GET http://localhost:3001/health`
-- Analyze: `POST http://localhost:3001/analyze`
-- Swagger: `http://localhost:3001/docs`
-
-Keys stay server-only — never put them in the extension.
+Keys stay server-only — never put provider secrets in the extension.

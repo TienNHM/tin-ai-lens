@@ -1,14 +1,49 @@
 {
   "name": "@tin-ai-lens/extension",
-  "version": "0.0.0",
+  "displayName": "TinAiLens",
+  "version": "0.1.0",
   "private": true,
-  "description": "TinAiLens Plasmo Chrome extension (scaffold)",
+  "type": "module",
+  "description": "Think Before You Trust — explainable trust signals for the page you're reading.",
+  "author": "TinAiLens",
   "scripts": {
-    "build": "node -e \"console.log('extension scaffold — implement after api')\"",
-    "dev": "node -e \"console.log('extension scaffold — implement after api')\"",
-    "typecheck": "node -e \"process.exit(0)\"",
-    "lint": "node -e \"process.exit(0)\"",
-    "test": "node -e \"process.exit(0)\"",
-    "clean": "node -e \"process.exit(0)\""
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "test": "tsc -p tsconfig.test.json && node --test dist-test/lib/markdown.test.js",
+    "clean": "rimraf build .plasmo dist-test"
+  },
+  "dependencies": {
+    "@mozilla/readability": "^0.6.0",
+    "@tin-ai-lens/types": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "turndown": "^7.2.4"
+  },
+  "devDependencies": {
+    "@tin-ai-lens/config": "workspace:*",
+    "@types/chrome": "^0.0.326",
+    "@types/mozilla__readability": "^0.4.2",
+    "@types/node": "^22.15.29",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
+    "@types/turndown": "^5.0.5",
+    "eslint": "^9.28.0",
+    "plasmo": "^0.90.5",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.33.1"
+  },
+  "manifest": {
+    "permissions": ["activeTab", "scripting", "storage"],
+    "host_permissions": [
+      "http://localhost:3001/*",
+      "http://127.0.0.1:3001/*",
+      "http://*/*",
+      "https://*/*"
+    ],
+    "name": "TinAiLens",
+    "description": "Think Before You Trust. Explainable trust signals — not a detector or oracle."
   }
 }
