@@ -2,13 +2,42 @@
   "name": "@tin-ai-lens/api",
   "version": "0.0.0",
   "private": true,
-  "description": "TinAiLens NestJS API (scaffold)",
+  "description": "TinAiLens NestJS API — ephemeral trust analysis",
   "scripts": {
-    "build": "node -e \"console.log('api scaffold — implement in next slice')\"",
-    "dev": "node -e \"console.log('api scaffold — implement in next slice')\"",
-    "typecheck": "node -e \"process.exit(0)\"",
-    "lint": "node -e \"process.exit(0)\"",
-    "test": "node -e \"process.exit(0)\"",
-    "clean": "node -e \"process.exit(0)\""
+    "build": "nest build",
+    "dev": "nest start --watch",
+    "start": "node dist/main.js",
+    "start:prod": "node dist/main.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src --max-warnings 0",
+    "test": "tsc -p tsconfig.test.json && node --test dist-test/common/zod-validation.pipe.test.js",
+    "clean": "rimraf dist dist-test"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.28",
+    "@nestjs/core": "^11.1.28",
+    "@nestjs/platform-express": "^11.1.28",
+    "@nestjs/swagger": "^11.4.6",
+    "@nestjs/throttler": "^6.5.0",
+    "@tin-ai-lens/ai": "workspace:*",
+    "@tin-ai-lens/types": "workspace:*",
+    "nestjs-pino": "^4.6.1",
+    "pino": "^9.7.0",
+    "pino-http": "^10.5.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "zod": "^3.25.56"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.7",
+    "@nestjs/schematics": "^11.0.5",
+    "@tin-ai-lens/config": "workspace:*",
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.29",
+    "eslint": "^9.28.0",
+    "pino-pretty": "^13.0.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.33.1"
   }
 }

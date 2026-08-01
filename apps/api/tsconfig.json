@@ -1,0 +1,14 @@
+{
+  "extends": "@tin-ai-lens/config/typescript/nestjs",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": true,
+    "verbatimModuleSyntax": false,
+    "incremental": false
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.test.ts", "dist", "node_modules"]
+}

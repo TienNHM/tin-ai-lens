@@ -44,8 +44,19 @@ pnpm test
 - Turborepo + pnpm workspace scaffolded
 - `@tin-ai-lens/types` — Trust Report + analyze I/O Zod schemas
 - `@tin-ai-lens/ai` — provider-agnostic `analyzeContent` (OpenAI / Anthropic / Gemini / OpenRouter), policy filter, grounding, versioned prompts
-- `ui` / `utils` / apps remain placeholders for the next slices
+- `@tin-ai-lens/api` — NestJS `POST /analyze` + `GET /health` + Swagger `/docs` (ephemeral, rate-limited)
+- Extension / web / ui remain next
 
-### AI env (server-only)
+### Run API
 
-Copy `packages/ai/.env.example`. Set `AI_PROVIDER` + the matching API key. Never put keys in the extension.
+```bash
+cp apps/api/.env.example apps/api/.env
+# set AI_PROVIDER + API key
+pnpm --filter @tin-ai-lens/api dev
+```
+
+- Health: `GET http://localhost:3001/health`
+- Analyze: `POST http://localhost:3001/analyze`
+- Swagger: `http://localhost:3001/docs`
+
+Keys stay server-only — never put them in the extension.
