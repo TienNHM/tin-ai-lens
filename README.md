@@ -55,6 +55,15 @@ pnpm --filter @tin-ai-lens/extension dev
 
 Keys stay in `chrome.storage.local` on the user's machine.
 
+### Publish to Chrome Web Store
+
+See [`apps/extension/store/LISTING.md`](apps/extension/store/LISTING.md) for listing copy, permission justifications, privacy URL, and asset checklist.
+
+```bash
+pnpm --filter @tin-ai-lens/extension package   # production zip
+# Deploy apps/web so https://<domain>/privacy is public
+```
+
 ### API (optional — founder/dev only)
 
 ```bash

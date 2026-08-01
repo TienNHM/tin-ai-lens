@@ -6,13 +6,16 @@
   "type": "module",
   "description": "Think Before You Trust — explainable trust signals for the page you're reading.",
   "author": "TinAiLens",
+  "homepage": "https://tinailens.com",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
+    "package": "plasmo build --zip",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint . --max-warnings 0",
     "test": "tsc -p tsconfig.test.json && node --test dist-test/lib/markdown.test.js",
-    "clean": "rimraf build .plasmo dist-test"
+    "clean": "rimraf build .plasmo dist-test",
+    "gen:icon": "python scripts/gen-icon.py"
   },
   "dependencies": {
     "@mozilla/readability": "^0.6.0",
@@ -39,10 +42,8 @@
   "manifest": {
     "permissions": ["activeTab", "scripting", "storage"],
     "host_permissions": [
-      "http://localhost:3001/*",
-      "http://127.0.0.1:3001/*",
-      "http://*/*",
-      "https://*/*"
+      "https://generativelanguage.googleapis.com/*",
+      "https://api.openai.com/*"
     ],
     "name": "TinAiLens",
     "description": "Think Before You Trust. Explainable trust signals — not a detector or oracle."
