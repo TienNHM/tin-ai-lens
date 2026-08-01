@@ -212,6 +212,38 @@ Regenerate:
 python apps/extension/scripts/pad-store-screenshots.py
 ```
 
+## Testing instructions (Hướng dẫn thử nghiệm)
+
+TinAiLens **không** có tài khoản đăng nhập. Reviewer cần API key Gemini (free).
+
+### Tên người dùng
+```
+N/A — no login account
+```
+
+### Mật khẩu
+```
+N/A
+```
+
+Hoặc để trống cả hai nếu Dashboard cho phép; nếu bắt buộc nhập thì dùng `N/A` như trên.
+
+### Hướng dẫn bổ sung (≤500 ký tự) — paste này, thay `YOUR_GEMINI_KEY`:
+
+Tạo key tạm tại https://aistudio.google.com/apikey (chỉ dùng cho review, thu hồi sau khi duyệt).
+
+```
+No app login. BYOK: open popup → Settings → Provider = Google Gemini → paste test API key below → Save → Allow Chrome host permission for generativelanguage.googleapis.com → open any long news article → Analyze. Expect Trust Report (score, signals, claims, suggestions). History stores reports locally only. Test key: YOUR_GEMINI_KEY
+```
+
+(VI — nếu form ưu tiên tiếng Việt)
+
+```
+Không cần đăng nhập app. Mở popup → Cài đặt → chọn Google Gemini → dán API key thử nghiệm bên dưới → Lưu → Cho phép quyền Chrome tới generativelanguage.googleapis.com → mở bài báo dài → Phân tích. Kỳ vọng Trust Report. Lịch sử chỉ lưu local. Key thử: YOUR_GEMINI_KEY
+```
+
+**Trước khi gửi:** tạo Gemini API key riêng cho review → thay `YOUR_GEMINI_KEY` → sau khi được duyệt thì **thu hồi/xóa** key đó trên Google AI Studio.
+
 ## Review notes (paste for reviewer)
 
 TinAiLens analyzes the active tab only on explicit user gesture. Users bring their own Gemini/OpenAI API key; page content goes to that provider, not to a TinAiLens backend. Local history stores Trust Reports without page markdown. We do not claim content is fake/true/AI-generated as a verdict.

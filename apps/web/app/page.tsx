@@ -1,4 +1,38 @@
+import Image from "next/image";
 import Link from "next/link";
+
+/** Prefix public assets for GitHub Pages basePath (Image unoptimized can skip auto-prefix). */
+const BASE = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/$/, "");
+const asset = (path: string) =>
+  `${BASE}${path.startsWith("/") ? path : `/${path}`}`;
+
+const PRODUCT_SHOTS = [
+  {
+    src: asset("/screenshots/01-main-popup.png"),
+    alt: "TinAiLens popup on an article — Analyze current page",
+    caption: "Popup",
+  },
+  {
+    src: asset("/screenshots/02-settings-byok.png"),
+    alt: "Settings with bring-your-own Gemini or OpenAI API key",
+    caption: "BYOK Settings",
+  },
+  {
+    src: asset("/screenshots/03-trust-score.png"),
+    alt: "Trust Score with summary and reasons",
+    caption: "Trust Score",
+  },
+  {
+    src: asset("/screenshots/04-signals-claims.png"),
+    alt: "Trust signals and key claims in the report",
+    caption: "Signals & claims",
+  },
+  {
+    src: asset("/screenshots/05-suggestions.png"),
+    alt: "Verification suggestions and uncertainty notes",
+    caption: "Suggestions",
+  },
+] as const;
 
 function HeroLensVisual() {
   return (
@@ -15,6 +49,8 @@ function HeroLensVisual() {
 }
 
 export default function HomePage() {
+  const [heroShot, ...moreShots] = PRODUCT_SHOTS;
+
   return (
     <main>
       <section className="relative min-h-[100svh] overflow-hidden">
@@ -25,12 +61,14 @@ export default function HomePage() {
             <span className="font-display text-lg font-semibold tracking-tight">
               TinAiLens
             </span>
-            <a
-              href="#install"
-              className="text-sm text-ink-soft transition-colors hover:text-pine"
-            >
-              Install
-            </a>
+            <div className="flex items-center gap-5 text-sm text-ink-soft">
+              <a href="#product" className="transition-colors hover:text-pine">
+                Product
+              </a>
+              <a href="#install" className="transition-colors hover:text-pine">
+                Install
+              </a>
+            </div>
           </nav>
 
           <div className="flex max-w-xl flex-1 flex-col justify-center pt-16 md:pt-10">
@@ -47,17 +85,16 @@ export default function HomePage() {
 
             <div className="animate-rise-delay-2 mt-9 flex flex-wrap items-center gap-3">
               <a
-                id="install"
-                href="#how"
+                href="#install"
                 className="inline-flex items-center justify-center rounded-full bg-pine px-5 py-3 text-sm font-semibold text-white transition hover:bg-pine-deep"
               >
                 Get the Chrome extension
               </a>
               <a
-                href="#not"
+                href="#product"
                 className="inline-flex items-center justify-center rounded-full border border-line/80 bg-white/40 px-5 py-3 text-sm font-medium text-ink backdrop-blur-sm transition hover:border-pine/40"
               >
-                What it is not
+                See the product
               </a>
             </div>
           </div>
@@ -77,62 +114,102 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="how" className="px-6 py-20">
+      <section id="product" className="px-6 py-20">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="font-display text-3xl tracking-tight sm:text-4xl">
+            The extension, as it looks.
+          </h2>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">
+            Popup, bring-your-own key settings, and the Trust Report — captured
+            from the real Chrome UI.
+          </p>
+
+          <figure className="shot-rise mt-12">
+            <Image
+              src={heroShot.src}
+              alt={heroShot.alt}
+              width={1280}
+              height={800}
+              className="h-auto w-full"
+              priority
+              sizes="(max-width: 1024px) 100vw, 1024px"
+            />
+            <figcaption className="mt-3 text-sm text-ink-soft">
+              {heroShot.caption}
+            </figcaption>
+          </figure>
+
+          <div className="mt-10 grid gap-8 sm:grid-cols-2">
+            {moreShots.map((shot, i) => (
+              <figure
+                key={shot.src}
+                className="shot-rise"
+                style={{ animationDelay: `${120 + i * 80}ms` }}
+              >
+                <Image
+                  src={shot.src}
+                  alt={shot.alt}
+                  width={1280}
+                  height={800}
+                  className="h-auto w-full"
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                />
+                <figcaption className="mt-3 text-sm text-ink-soft">
+                  {shot.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="how" className="border-t border-line bg-mist/50 px-6 py-20">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-display text-3xl tracking-tight">How it works</h2>
           <ol className="mt-8 space-y-6 text-ink-soft">
             <li className="grid gap-1 sm:grid-cols-[4rem_1fr] sm:items-baseline">
               <span className="font-display text-2xl text-pine">01</span>
-              <span>Open any text-heavy article in Chrome.</span>
+              <span>
+                In Settings, paste your own Gemini or OpenAI API key (stays on
+                your device).
+              </span>
             </li>
             <li className="grid gap-1 sm:grid-cols-[4rem_1fr] sm:items-baseline">
               <span className="font-display text-2xl text-pine">02</span>
-              <span>Click TinAiLens and analyze the current page.</span>
+              <span>Open any text-heavy article in Chrome.</span>
             </li>
             <li className="grid gap-1 sm:grid-cols-[4rem_1fr] sm:items-baseline">
               <span className="font-display text-2xl text-pine">03</span>
               <span>
-                Read the Trust Report — score, reasons, signals, claims,
-                suggestions — then you decide.
+                Click Analyze — read the Trust Report, then you decide what to
+                trust next.
               </span>
             </li>
           </ol>
 
-          <div className="mt-12 overflow-hidden rounded-2xl border border-line bg-white">
-            <div className="flex items-center justify-between border-b border-line px-5 py-3">
-              <span className="font-display text-sm font-semibold tracking-tight text-pine">
-                Example Trust Report
-              </span>
-              <span className="text-xs text-ink-soft">Confidence 72%</span>
-            </div>
-            <div className="grid gap-4 px-5 py-5 sm:grid-cols-[auto_1fr] sm:items-end">
-              <div>
-                <div className="text-[11px] uppercase tracking-[0.14em] text-ink-soft">
-                  Trust Score
-                </div>
-                <div className="font-display text-5xl font-semibold tracking-tight">
-                  64
-                </div>
-              </div>
-              <p className="text-sm leading-relaxed text-ink-soft">
-                Mixed sourcing on load-bearing statistics. Worth verifying the
-                primary study before citing.
-              </p>
-            </div>
-            <div className="border-t border-line px-5 py-4 text-sm text-ink-soft">
-              Reason: several figures lack linked sources — not a verdict of
-              false.
-            </div>
-          </div>
-
           <p className="mt-10 text-sm leading-relaxed text-ink-soft">
-            Free for the community: bring your own Gemini or OpenAI API key in
-            extension Settings. Analysis runs on your device against your
-            provider — see our{" "}
+            Analysis runs against your provider — not a TinAiLens backend. See
+            our{" "}
             <Link href="/privacy/" className="text-pine hover:underline">
               Privacy Policy
             </Link>
             .
+          </p>
+        </div>
+      </section>
+
+      <section id="install" className="px-6 py-20">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="font-display text-3xl tracking-tight">
+            Get TinAiLens for Chrome
+          </h2>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">
+            Chrome Web Store listing is in review. When it is live, install from
+            the Store — free community BYOK, no TinAiLens account.
+          </p>
+          <p className="mt-8 text-sm text-ink-soft">
+            Prefer source? Follow the monorepo README to load the unpacked
+            production build while the listing is pending.
           </p>
         </div>
       </section>
@@ -149,7 +226,7 @@ export default function HomePage() {
           </p>
           <ul className="mt-8 space-y-3 text-mist/90">
             <li>No fear theater. No censorship tooling.</li>
-            <li>Ephemeral analysis by default — privacy is part of trust.</li>
+            <li>Local history stores Trust Reports only — not full page bodies.</li>
             <li>Every score comes with reasons, or it does not ship.</li>
           </ul>
         </div>
