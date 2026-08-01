@@ -19,6 +19,7 @@ This document is the build contract for product, design, engineering, AI, and co
 - Vision Tenets outrank this spec.  
 - Launch requires quality bars in §16 — not “feature complete” alone.  
 - **Depth rule:** Keep full requirements, AC, flows, edge cases, and NFRs. Do not thin this spec into slogans.
+- **Shipping cut:** What actually ships is governed by [`03-MVP.md`](03-MVP.md) **v0.2+** (BYOK serverless community path, local Trust Report history, no account/billing). Where this PRD still lists cloud save / account as MVP P0, treat those as **deferred** unless MVP is updated.
 ---
 
 # 0. Executive summary

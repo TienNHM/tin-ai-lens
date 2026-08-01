@@ -8,12 +8,12 @@ AI-powered Trust Assistant for the browser. Explainable trust signals — not a 
 
 ```
 apps/
-  api          NestJS backend
-  extension    Plasmo Chrome extension
-  web          Next.js landing
+  api          NestJS backend (optional — founder/dev)
+  extension    Plasmo Chrome extension (BYOK community path)
+  web          Next.js landing + privacy
 packages/
   types        Zod Trust Report + analyze I/O
-  ai           Provider-agnostic LLM analysis
+  ai           Provider-agnostic LLM analysis (+ browser BYOK path)
   ui           Shared UI
   utils        Shared utilities
   config       TS / ESLint / Prettier bases
@@ -35,9 +35,11 @@ pnpm test
 
 ## Docs (read first)
 
-1. `docs/00-VISION.md`
-2. `docs/03-MVP.md`
-3. `docs/09-AI.md`
+1. [`docs/README.md`](docs/README.md) — index + shipping snapshot  
+2. `docs/00-VISION.md`  
+3. `docs/03-MVP.md` (v0.2 — what ships)  
+4. `docs/09-AI.md`  
+5. Chrome Store pack: `apps/extension/store/LISTING.md`
 
 ## Run locally
 
