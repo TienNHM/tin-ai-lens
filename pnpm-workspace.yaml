@@ -1,0 +1,7 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# pnpm v11 build-script policy. Prefer false unless a package genuinely needs postinstall.
+allowBuilds:
+  esbuild: false

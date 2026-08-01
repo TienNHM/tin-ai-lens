@@ -1,0 +1,14 @@
+{
+  "name": "@tin-ai-lens/web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "TinAiLens Next.js web app (scaffold)",
+  "scripts": {
+    "build": "node -e \"console.log('web scaffold — implement later')\"",
+    "dev": "node -e \"console.log('web scaffold — implement later')\"",
+    "typecheck": "node -e \"process.exit(0)\"",
+    "lint": "node -e \"process.exit(0)\"",
+    "test": "node -e \"process.exit(0)\"",
+    "clean": "node -e \"process.exit(0)\""
+  }
+}

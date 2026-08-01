@@ -1,0 +1,29 @@
+{
+  "name": "@tin-ai-lens/ui",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Shared UI primitives for TinAiLens (scaffold)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src --max-warnings 0",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "@tin-ai-lens/config": "workspace:*",
+    "eslint": "^9.28.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.33.1"
+  }
+}
