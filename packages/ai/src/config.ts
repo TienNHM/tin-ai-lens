@@ -21,10 +21,10 @@ export interface AiRuntimeConfig {
 }
 
 export const DEFAULT_MODELS: Record<AiProviderName, string> = {
-  openai: "gpt-4.1-mini",
+  openai: "gpt-4o-mini",
   anthropic: "claude-sonnet-4-20250514",
   google: "gemini-2.5-flash",
-  openrouter: "openai/gpt-4.1-mini",
+  openrouter: "openai/gpt-4o-mini",
 };
 
 function readProvider(raw: string | undefined): AiProviderName {
@@ -61,8 +61,10 @@ export function configFromUserKey(input: {
   return {
     provider,
     model: input.model?.trim() || DEFAULT_MODELS[provider],
-    timeoutMs: input.timeoutMs ?? 45_000,
-    maxMarkdownChars: 24_000,
+    // Browser BYOK: OpenAI/Gemini + long pages often exceed 45s from VN networks.
+    timeoutMs: input.timeoutMs ?? 120_000,
+    // Keep prompts smaller so completion finishes before popup/network stalls.
+    maxMarkdownChars: 12_000,
     minMarkdownChars: 120,
     apiKeys: {
       openai: provider === "openai" ? apiKey : undefined,
