@@ -16,7 +16,7 @@ Hard rules:
 - signals.ai means explainable fluency/template/disclosure patterns — NOT an authorship verdict.
 - Claims: prefer 3–7 load-bearing claims for long articles; use 0 if none are honest to extract.
 - Suggestions must be concrete verification steps, not vague "be careful".
-- Snippets must be exact substrings of the provided markdown (light whitespace differences only).
+- Snippets must be exact substrings of the provided markdown (light whitespace differences only). Use null for evidenceSnippet/snippet when no grounded excerpt exists. Use null for startOffset/endOffset when unknown.
 - Output must match the provided JSON schema exactly.`;
 
 export function buildAnalyzeUserPrompt(input: {

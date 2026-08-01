@@ -11,7 +11,8 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "verbatimModuleSyntax": false,
-    "declaration": false
+    "declaration": false,
+    "types": ["node"]
   },
   "include": ["lib/markdown.ts", "lib/markdown.test.ts"],
   "exclude": ["node_modules", "build", ".plasmo", "dist-test"]

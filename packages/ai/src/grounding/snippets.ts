@@ -17,11 +17,11 @@ export function isSnippetGrounded(snippet: string, sourceMarkdown: string): bool
 }
 
 function dropUngroundedSnippet<T extends { text: string }>(
-  snippet: T | undefined,
+  snippet: T | null | undefined,
   sourceMarkdown: string,
-): T | undefined {
-  if (!snippet) return undefined;
-  return isSnippetGrounded(snippet.text, sourceMarkdown) ? snippet : undefined;
+): T | null {
+  if (!snippet) return null;
+  return isSnippetGrounded(snippet.text, sourceMarkdown) ? snippet : null;
 }
 
 /**

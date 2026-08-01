@@ -227,12 +227,22 @@ export async function analyzeContent(
     const timedOut =
       abortSignal.aborted || /timeout|aborted|AbortError/i.test(message);
 
+    // Keep full provider detail in server logs; return a calm client message.
+    console.error("[tin-ai-lens/ai] analyze failed", {
+      requestId: request.requestId,
+      provider: config.provider,
+      model: config.model,
+      message,
+    });
+
     return errorResponse(
       request.requestId,
       timedOut ? "timeout" : "provider_error",
       timedOut
         ? "Analysis timed out. Please retry."
-        : "Analysis provider failed. Please retry.",
+        : process.env.NODE_ENV === "production"
+          ? "Analysis provider failed. Please retry."
+          : `Analysis provider failed: ${message.slice(0, 280)}`,
       buildModelMeta(config, lastUsage, Date.now() - started),
     );
   }

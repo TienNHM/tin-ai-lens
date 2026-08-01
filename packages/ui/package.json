@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@tin-ai-lens/config": "workspace:*",
+    "@types/node": "^22.15.29",
     "eslint": "^9.28.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.8.3",

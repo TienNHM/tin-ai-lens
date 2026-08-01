@@ -9,6 +9,7 @@ function validSignal(overrides: Partial<TrustReport["signals"]["ai"]> = {}) {
     present: false,
     severity: "low" as const,
     explanation: "No concerning pattern detected for this signal.",
+    evidenceSnippet: null,
     uncertain: false,
     ...overrides,
   };
@@ -24,6 +25,7 @@ function reportInput(overrides: Record<string, unknown> = {}) {
         id: "r1",
         signalType: "missing_source",
         summary: "Several statistics lack linked primary sources.",
+        evidenceSnippet: null,
       },
     ],
     signals: {
@@ -50,6 +52,7 @@ function reportInput(overrides: Record<string, unknown> = {}) {
         text: "The study showed a 40% increase.",
         type: "statistic",
         confidence: 0.6,
+        snippet: null,
       },
     ],
     suggestions: [
@@ -66,6 +69,7 @@ function reportInput(overrides: Record<string, unknown> = {}) {
     coverage: {
       ratio: 0.85,
       truncated: false,
+      notes: null,
     },
     warnings: [],
     ...overrides,

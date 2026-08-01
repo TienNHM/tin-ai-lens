@@ -6,10 +6,14 @@ import {
   SignalSeveritySchema,
 } from "./enums.js";
 
+/**
+ * OpenAI structured outputs require every key in `required`.
+ * Use `.nullable()` instead of `.optional()` for fields the model may omit.
+ */
 export const EvidenceSnippetSchema = z.object({
   text: z.string().min(1).max(500),
-  startOffset: z.number().int().nonnegative().optional(),
-  endOffset: z.number().int().nonnegative().optional(),
+  startOffset: z.number().int().nonnegative().nullable(),
+  endOffset: z.number().int().nonnegative().nullable(),
 });
 
 export const TrustSignalSchema = z.object({
@@ -18,16 +22,16 @@ export const TrustSignalSchema = z.object({
   severity: SignalSeveritySchema,
   /** Plain-language explanation — required; explain presence or absence */
   explanation: z.string().min(1).max(1000),
-  evidenceSnippet: EvidenceSnippetSchema.optional(),
+  evidenceSnippet: EvidenceSnippetSchema.nullable(),
   /** Explicit uncertainty about this signal */
-  uncertain: z.boolean().default(false),
+  uncertain: z.boolean(),
 });
 
 export const TrustReasonSchema = z.object({
   id: z.string().min(1),
   signalType: ReasonSignalTypeSchema,
   summary: z.string().min(1).max(500),
-  evidenceSnippet: EvidenceSnippetSchema.optional(),
+  evidenceSnippet: EvidenceSnippetSchema.nullable(),
 });
 
 export const ClaimSchema = z.object({
@@ -35,7 +39,7 @@ export const ClaimSchema = z.object({
   text: z.string().min(1).max(1000),
   type: ClaimTypeSchema,
   confidence: z.number().min(0).max(1),
-  snippet: EvidenceSnippetSchema.optional(),
+  snippet: EvidenceSnippetSchema.nullable(),
 });
 
 export const SuggestionSchema = z.object({
@@ -48,7 +52,7 @@ export const CoverageSchema = z.object({
   /** 0–1 estimate of how much of the page was considered */
   ratio: z.number().min(0).max(1),
   truncated: z.boolean(),
-  notes: z.string().max(500).optional(),
+  notes: z.string().max(500).nullable(),
 });
 
 export const UncertaintySchema = z.object({
@@ -60,9 +64,9 @@ export const ModelMetaSchema = z.object({
   provider: z.string().min(1),
   model: z.string().min(1),
   promptVersion: z.string().min(1),
-  latencyMs: z.number().int().nonnegative().optional(),
-  inputTokens: z.number().int().nonnegative().optional(),
-  outputTokens: z.number().int().nonnegative().optional(),
+  latencyMs: z.number().int().nonnegative().nullable().optional(),
+  inputTokens: z.number().int().nonnegative().nullable().optional(),
+  outputTokens: z.number().int().nonnegative().nullable().optional(),
 });
 
 export const TrustSignalsSchema = z.object({

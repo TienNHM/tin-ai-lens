@@ -30,7 +30,11 @@ describe("groundTrustReport", () => {
           id: "r1",
           signalType: "evidence",
           summary: "Check sourcing.",
-          evidenceSnippet: { text: "not in the page at all xyz" },
+          evidenceSnippet: {
+            text: "not in the page at all xyz",
+            startOffset: null,
+            endOffset: null,
+          },
         },
       ],
       signals: {
@@ -38,12 +42,14 @@ describe("groundTrustReport", () => {
           present: false,
           severity: "low",
           explanation: "No strong template signal.",
+          evidenceSnippet: null,
           uncertain: false,
         },
         clickbait: {
           present: false,
           severity: "low",
           explanation: "Headline is calm.",
+          evidenceSnippet: null,
           uncertain: false,
         },
         missingSource: {
@@ -51,12 +57,17 @@ describe("groundTrustReport", () => {
           severity: "medium",
           explanation: "Sources are thin.",
           uncertain: false,
-          evidenceSnippet: { text: "Sources are thin." },
+          evidenceSnippet: {
+            text: "Sources are thin.",
+            startOffset: null,
+            endOffset: null,
+          },
         },
         missingAuthor: {
           present: false,
           severity: "low",
           explanation: "Author present.",
+          evidenceSnippet: null,
           uncertain: false,
         },
       },
@@ -66,7 +77,11 @@ describe("groundTrustReport", () => {
           text: "Claim text",
           type: "other",
           confidence: 0.5,
-          snippet: { text: "Claim text" },
+          snippet: {
+            text: "Claim text",
+            startOffset: null,
+            endOffset: null,
+          },
         },
       ],
       suggestions: [
@@ -77,7 +92,7 @@ describe("groundTrustReport", () => {
         },
       ],
       uncertainty: { summary: "Partial page.", factors: [] },
-      coverage: { ratio: 1, truncated: false },
+      coverage: { ratio: 1, truncated: false, notes: null },
       warnings: [],
     } as TrustReport;
 
@@ -86,7 +101,7 @@ describe("groundTrustReport", () => {
       "Author present. Sources are thin. Claim text appears here.",
     );
 
-    assert.equal(grounded.reasons[0]?.evidenceSnippet, undefined);
+    assert.equal(grounded.reasons[0]?.evidenceSnippet, null);
     assert.ok(grounded.signals.missingSource.evidenceSnippet);
     assert.ok(grounded.claims[0]?.snippet);
   });
