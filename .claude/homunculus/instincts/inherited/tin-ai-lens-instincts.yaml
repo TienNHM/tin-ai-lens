@@ -1,0 +1,415 @@
+# Instincts generated from https://github.com/TienNHM/tin-ai-lens
+# Generated: 2026-08-01T12:53:31.956Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: tin-ai-lens-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Commit Length
+
+## Action
+
+Write moderate-length commit messages (~69 characters)
+
+## Evidence
+
+- Average commit message length: 69 chars
+- Based on 5 commits
+
+---
+id: tin-ai-lens-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: tin-ai-lens-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: tin-ai-lens-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: tin-ai-lens-workflow-add-or-refactor-browser-analysis
+trigger: "when doing add or refactor browser analysis"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Workflow Add Or Refactor Browser Analysis
+
+## Action
+
+Follow the add-or-refactor-browser-analysis workflow:
+1. Create or update analysis logic in extension/lib (e.g., analyze-local.ts, byok.ts)
+2. Implement or refactor browser-specific analysis entry points in packages/ai/src (e.g., browser-analyze.ts)
+3. Update or add type definitions in packages/types/src (e.g., analyze.ts, trust-report.ts)
+4. Update package.json to reflect new entry points or scripts
+5. Update configuration or documentation as needed
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: apps/extension/lib/analyze-local.ts, apps/extension/lib/byok.ts, packages/ai/src/browser-analyze.ts
+
+---
+id: tin-ai-lens-workflow-extension-feature-or-release-preparation
+trigger: "when doing extension feature or release preparation"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Workflow Extension Feature Or Release Preparation
+
+## Action
+
+Follow the extension-feature-or-release-preparation workflow:
+1. Update README.md with new features or publishing instructions
+2. Modify or add packaging scripts in package.json or scripts/ directory
+3. Add or update assets (e.g., icons, screenshots) in the assets/ or store/ directories
+4. Create or update documentation files (e.g., LISTING.md, privacy policy)
+5. Update extension configuration files as needed
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: README.md, apps/extension/package.json, apps/extension/scripts/gen-icon.py
+
+---
+id: tin-ai-lens-instinct-camelCase-files
+trigger: "When creating or renaming a file in the codebase"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct CamelCase Files
+
+## Action
+
+Name the file using camelCase (e.g., analyzeLocal.ts)
+
+## Evidence
+
+- Pattern in namingConventions.files
+- Files like analyze-local.ts, byok.ts
+
+---
+id: tin-ai-lens-instinct-camelCase-functions
+trigger: "When defining a function"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct CamelCase Functions
+
+## Action
+
+Use camelCase for function names
+
+## Evidence
+
+- Pattern in namingConventions.functions
+- Functions in TypeScript files
+
+---
+id: tin-ai-lens-instinct-pascalCase-classes
+trigger: "When defining a class"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct PascalCase Classes
+
+## Action
+
+Use PascalCase for class names
+
+## Evidence
+
+- Pattern in namingConventions.classes
+
+---
+id: tin-ai-lens-instinct-screaming-snake-constants
+trigger: "When declaring a constant"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct Screaming Snake Constants
+
+## Action
+
+Use SCREAMING_SNAKE_CASE for constant names
+
+## Evidence
+
+- Pattern in namingConventions.constants
+
+---
+id: tin-ai-lens-instinct-mixed-imports
+trigger: "When importing modules"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct Mixed Imports
+
+## Action
+
+Use mixed import styles as appropriate (default and named imports)
+
+## Evidence
+
+- Pattern in importStyle: mixed
+- Seen in TypeScript source files
+
+---
+id: tin-ai-lens-instinct-named-exports
+trigger: "When exporting from a module"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct Named Exports
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Pattern in exportStyle: named
+
+---
+id: tin-ai-lens-instinct-try-catch-errors
+trigger: "When handling errors in code"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct Try Catch Errors
+
+## Action
+
+Use try-catch blocks for error handling
+
+## Evidence
+
+- Pattern in errorHandling.style
+- Seen in TypeScript files
+
+---
+id: tin-ai-lens-instinct-custom-error-classes
+trigger: "When defining application-specific errors"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct Custom Error Classes
+
+## Action
+
+Create custom error classes
+
+## Evidence
+
+- Pattern in errorHandling.customErrorClasses
+
+---
+id: tin-ai-lens-instinct-test-location-separate
+trigger: "When adding or updating tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct Test Location Separate
+
+## Action
+
+Place test files in a separate directory from source code
+
+## Evidence
+
+- Pattern in architecture.testLocation: separate
+
+---
+id: tin-ai-lens-instinct-monorepo-test-structure
+trigger: "When writing tests for a package or app"
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct Monorepo Test Structure
+
+## Action
+
+Organize tests within the corresponding package or app directory, but outside the main src
+
+## Evidence
+
+- Monorepo structure with separate testLocation
+- CommonFolders: apps, packages
+
+---
+id: tin-ai-lens-instinct-commit-freeform
+trigger: "When writing a commit message"
+confidence: 0.8
+domain: git
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct Commit Freeform
+
+## Action
+
+Write a freeform, descriptive commit message without strict prefixing
+
+## Evidence
+
+- Pattern in commits.type: freeform
+- Examples: 'Add BYOK serverless analyze...'
+- No prefixes detected
+
+---
+id: tin-ai-lens-instinct-commit-length
+trigger: "When composing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct Commit Length
+
+## Action
+
+Keep commit messages concise (around 69 characters on average)
+
+## Evidence
+
+- Pattern in commits.averageLength: 69
+
+---
+id: tin-ai-lens-instinct-add-or-refactor-browser-analysis
+trigger: "When someone wants to add or improve browser-safe AI analysis in the extension, especially for direct provider interaction"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct Add Or Refactor Browser Analysis
+
+## Action
+
+Follow the workflow: update analysis logic in extension/lib, refactor browser entry points in packages/ai/src, update types in packages/types/src, update package.json, and update configuration or docs as needed
+
+## Evidence
+
+- Workflow: add-or-refactor-browser-analysis
+- Files: analyze-local.ts, byok.ts, browser-analyze.ts, analyze.ts, trust-report.ts, package.json
+- Example commit sequence
+
+---
+id: tin-ai-lens-instinct-extension-feature-or-release-preparation
+trigger: "When someone wants to release a new version of the extension or add significant user-facing features"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: TienNHM/tin-ai-lens
+---
+
+# Tin Ai Lens Instinct Extension Feature Or Release Preparation
+
+## Action
+
+Follow the workflow: update README.md, modify/add packaging scripts, update/add assets, update documentation files, update extension config files
+
+## Evidence
+
+- Workflow: extension-feature-or-release-preparation
+- Files: README.md, package.json, gen-icon.py, icon.png, LISTING.md, screenshots, privacy/page.tsx
+- Example commit sequence
+
