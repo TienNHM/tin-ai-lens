@@ -3,8 +3,14 @@ import { useCallback, useEffect, useState } from "react";
 import type { AnalyzeResponse, Locale, TrustReport } from "@tin-ai-lens/types";
 
 import { HistoryPanel } from "~/components/HistoryPanel";
+import { SettingsPanel } from "~/components/SettingsPanel";
 import { TrustReportView } from "~/components/TrustReportView";
-import { AnalyzeApiError, newRequestId, postAnalyze } from "~/lib/api";
+import {
+  analyzeLocal,
+  ByokMissingError,
+  newRequestId,
+} from "~/lib/analyze-local";
+import { getByokSettings, type ByokSettings } from "~/lib/byok";
 import {
   addHistoryEntry,
   clearHistory,
@@ -26,7 +32,7 @@ type UiState =
   | "insufficient"
   | "error";
 
-type View = "main" | "history";
+type View = "main" | "history" | "settings";
 
 const EXT_VERSION = "0.1.0";
 
@@ -39,9 +45,14 @@ function IndexPopup() {
   const [historyItems, setHistoryItems] = useState<HistoryItem[]>([]);
   const [fromHistory, setFromHistory] = useState(false);
   const [activeReport, setActiveReport] = useState<TrustReport | null>(null);
+  const [byok, setByok] = useState<ByokSettings | null>(null);
 
   const refreshHistory = useCallback(async () => {
     setHistoryItems(await listHistory());
+  }, []);
+
+  const refreshByok = useCallback(async () => {
+    setByok(await getByokSettings());
   }, []);
 
   useEffect(() => {
@@ -49,7 +60,8 @@ function IndexPopup() {
       setLocale(stored);
     });
     void refreshHistory();
-  }, [refreshHistory]);
+    void refreshByok();
+  }, [refreshHistory, refreshByok]);
 
   const onLocaleChange = useCallback(async (next: Locale) => {
     setLocale(next);
@@ -66,14 +78,23 @@ function IndexPopup() {
     setResponse(null);
     setActiveReport(null);
     setFromHistory(false);
-    setState("extracting");
     setView("main");
+
+    const settings = await getByokSettings();
+    if (!settings) {
+      setState("error");
+      setError(t(locale, "byokMissing"));
+      setView("settings");
+      return;
+    }
+
+    setState("extracting");
 
     try {
       const page = await extractActiveTab();
       setState("analyzing");
 
-      const result = await postAnalyze({
+      const result = await analyzeLocal({
         requestId: newRequestId(),
         url: page.url,
         title: page.title,
@@ -109,15 +130,19 @@ function IndexPopup() {
         }
       } else {
         setState("error");
+        if (result.error?.message) {
+          setError(result.error.message);
+        }
       }
     } catch (err) {
       setState("error");
+      if (err instanceof ByokMissingError) {
+        setError(t(locale, "byokMissing"));
+        setView("settings");
+        return;
+      }
       setError(
-        err instanceof AnalyzeApiError
-          ? err.message
-          : err instanceof Error
-            ? err.message
-            : t(locale, "genericError"),
+        err instanceof Error ? err.message : t(locale, "genericError"),
       );
     }
   }, [locale, refreshHistory]);
@@ -151,6 +176,20 @@ function IndexPopup() {
     );
   }
 
+  if (view === "settings") {
+    return (
+      <div className="shell">
+        <SettingsPanel
+          locale={locale}
+          onBack={() => setView("main")}
+          onSaved={() => {
+            void refreshByok();
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="shell">
       <header className="header">
@@ -159,6 +198,15 @@ function IndexPopup() {
           <div className="tagline">{t(locale, "tagline")}</div>
         </div>
         <div className="header-actions">
+          <button
+            type="button"
+            className="ghost-btn"
+            onClick={() => setView("settings")}
+          >
+            {byok
+              ? `${t(locale, "settings")} · ${t(locale, "byokConnected")}`
+              : t(locale, "byokSetup")}
+          </button>
           <button
             type="button"
             className="ghost-btn"
@@ -190,6 +238,19 @@ function IndexPopup() {
 
       <p className="lede">{t(locale, "lede")}</p>
 
+      {!byok ? (
+        <div className="banner">
+          {t(locale, "byokMissing")}{" "}
+          <button
+            type="button"
+            className="link-btn"
+            onClick={() => setView("settings")}
+          >
+            {t(locale, "settings")}
+          </button>
+        </div>
+      ) : null}
+
       <button
         type="button"
         className="primary"
@@ -213,7 +274,7 @@ function IndexPopup() {
         <div className="banner">{t(locale, "insufficient")}</div>
       ) : null}
 
-      {state === "error" && response?.error ? (
+      {state === "error" && response?.error && !error ? (
         <div className="banner error">{response.error.message}</div>
       ) : null}
 

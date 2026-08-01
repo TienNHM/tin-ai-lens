@@ -25,6 +25,8 @@ export interface AnalyzeContentOptions {
   config?: AiRuntimeConfig;
   /** Inject model for tests; skips provider factory. */
   model?: LanguageModel;
+  /** Surface provider error text to the client (BYOK / local). */
+  exposeErrorDetails?: boolean;
 }
 
 function insufficientResponse(
@@ -249,9 +251,13 @@ export async function analyzeContent(
       timedOut ? "timeout" : "provider_error",
       timedOut
         ? "Analysis timed out. Please retry."
-        : process.env.NODE_ENV === "production"
-          ? "Analysis provider failed. Please retry."
-          : `Analysis provider failed: ${message.slice(0, 280)}`,
+        : options.exposeErrorDetails ||
+            !(
+              typeof process !== "undefined" &&
+              process.env?.NODE_ENV === "production"
+            )
+          ? `Analysis provider failed: ${message.slice(0, 280)}`
+          : "Analysis provider failed. Please retry.",
       buildModelMeta(config, lastUsage, Date.now() - started),
     );
   }

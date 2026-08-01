@@ -42,7 +42,25 @@ export type MessageKey =
   | "clearHistory"
   | "delete"
   | "back"
-  | "viewingHistory";
+  | "viewingHistory"
+  | "settings"
+  | "byokPrivacy"
+  | "byokProvider"
+  | "byokProviderGoogle"
+  | "byokProviderOpenai"
+  | "byokApiKey"
+  | "byokKeyPlaceholder"
+  | "byokKeyPlaceholderSaved"
+  | "byokGetGeminiKey"
+  | "byokGetOpenaiKey"
+  | "byokSave"
+  | "byokClear"
+  | "byokSaved"
+  | "byokCleared"
+  | "byokKeyRequired"
+  | "byokMissing"
+  | "byokConnected"
+  | "byokSetup";
 
 const vi: Record<MessageKey, string> = {
   tagline: "Think Before You Trust.",
@@ -86,6 +104,25 @@ const vi: Record<MessageKey, string> = {
   delete: "Xóa",
   back: "Quay lại",
   viewingHistory: "Đang xem từ lịch sử",
+  settings: "Cài đặt",
+  byokPrivacy:
+    "Key chỉ lưu trên máy bạn. Extension gọi thẳng Gemini/OpenAI — không qua server TinAiLens.",
+  byokProvider: "Nhà cung cấp",
+  byokProviderGoogle: "Google Gemini (khuyến nghị, có free tier)",
+  byokProviderOpenai: "OpenAI",
+  byokApiKey: "API key",
+  byokKeyPlaceholder: "Dán API key của bạn",
+  byokKeyPlaceholderSaved: "Đã lưu ({masked}) — dán key mới để thay",
+  byokGetGeminiKey: "Lấy Gemini API key (Google AI Studio)",
+  byokGetOpenaiKey: "Lấy OpenAI API key",
+  byokSave: "Lưu",
+  byokClear: "Xóa key",
+  byokSaved: "Đã lưu API key trên máy này.",
+  byokCleared: "Đã xóa API key.",
+  byokKeyRequired: "Nhập API key để lưu.",
+  byokMissing: "Chưa có API key. Mở Cài đặt để kết nối Gemini hoặc OpenAI.",
+  byokConnected: "Đã kết nối",
+  byokSetup: "Kết nối API key",
 };
 
 const en: Record<MessageKey, string> = {
@@ -130,6 +167,25 @@ const en: Record<MessageKey, string> = {
   delete: "Delete",
   back: "Back",
   viewingHistory: "Viewing from history",
+  settings: "Settings",
+  byokPrivacy:
+    "Your key stays on this device. The extension calls Gemini/OpenAI directly — not via TinAiLens servers.",
+  byokProvider: "Provider",
+  byokProviderGoogle: "Google Gemini (recommended, free tier)",
+  byokProviderOpenai: "OpenAI",
+  byokApiKey: "API key",
+  byokKeyPlaceholder: "Paste your API key",
+  byokKeyPlaceholderSaved: "Saved ({masked}) — paste a new key to replace",
+  byokGetGeminiKey: "Get a Gemini API key (Google AI Studio)",
+  byokGetOpenaiKey: "Get an OpenAI API key",
+  byokSave: "Save",
+  byokClear: "Remove key",
+  byokSaved: "API key saved on this device.",
+  byokCleared: "API key removed.",
+  byokKeyRequired: "Enter an API key to save.",
+  byokMissing: "No API key yet. Open Settings to connect Gemini or OpenAI.",
+  byokConnected: "Connected",
+  byokSetup: "Connect API key",
 };
 
 const catalogs: Record<Locale, Record<MessageKey, string>> = { vi, en };

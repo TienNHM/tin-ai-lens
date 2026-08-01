@@ -41,19 +41,31 @@ pnpm test
 
 ## Run locally
 
-```bash
-# API
-cp apps/api/.env.example apps/api/.env   # set AI_PROVIDER + key
-pnpm --filter @tin-ai-lens/api dev
+### Extension (community / BYOK — recommended)
 
-# Extension
-cp apps/extension/.env.example apps/extension/.env
+Users paste their own **Gemini** (recommended, free tier) or **OpenAI** API key in extension Settings. Analyze runs in the extension against the provider — no TinAiLens server, no founder API bill.
+
+```bash
+pnpm --filter @tin-ai-lens/types build
+pnpm --filter @tin-ai-lens/ai build
 pnpm --filter @tin-ai-lens/extension dev
 # Chrome → Load unpacked → apps/extension/build/chrome-mv3-dev
+# Open popup → Settings → paste key from https://aistudio.google.com/apikey
+```
 
-# Landing
+Keys stay in `chrome.storage.local` on the user's machine.
+
+### API (optional — founder/dev only)
+
+```bash
+cp apps/api/.env.example apps/api/.env   # set AI_PROVIDER + key
+pnpm --filter @tin-ai-lens/api dev
+```
+
+### Landing
+
+```bash
 pnpm --filter @tin-ai-lens/web dev
 # http://localhost:3000
 ```
 
-Keys stay server-only — never put provider secrets in the extension or web client.
