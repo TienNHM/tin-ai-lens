@@ -1,8 +1,6 @@
-import type { ByokProviderName } from "@tin-ai-lens/ai";
-
 const STORAGE_KEY = "tinailens.byok";
 
-export type ByokProvider = ByokProviderName;
+export type ByokProvider = "google" | "openai";
 
 export interface ByokSettings {
   provider: ByokProvider;

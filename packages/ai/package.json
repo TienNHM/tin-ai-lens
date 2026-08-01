@@ -12,6 +12,11 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser-analyze.d.ts",
+      "import": "./dist/browser-analyze.js",
+      "default": "./dist/browser-analyze.js"
     }
   },
   "files": ["dist"],

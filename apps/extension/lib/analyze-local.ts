@@ -1,7 +1,6 @@
-import {
-  analyzeContent,
-  configFromUserKey,
-} from "@tin-ai-lens/ai";
+// Import source directly so Plasmo bundles the fetch-only path
+// (not packages/ai main, which pulls the Vercel AI SDK ~16MB).
+import { analyzeWithUserKey } from "../../../packages/ai/src/browser-analyze";
 import type { AnalyzeRequest, AnalyzeResponse } from "@tin-ai-lens/types";
 
 import { getByokSettings } from "~/lib/byok";
@@ -24,14 +23,9 @@ export async function analyzeLocal(
     throw new ByokMissingError();
   }
 
-  const config = configFromUserKey({
+  return analyzeWithUserKey(request, {
     provider: settings.provider,
     apiKey: settings.apiKey,
-  });
-
-  return analyzeContent(request, {
-    config,
-    exposeErrorDetails: true,
   });
 }
 
