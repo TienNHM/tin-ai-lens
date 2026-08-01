@@ -41,6 +41,23 @@ pnpm test
 4. `docs/09-AI.md`  
 5. Chrome Store pack: `apps/extension/store/LISTING.md`
 
+## GitHub Pages (landing + privacy)
+
+Static export of `apps/web` deploys via `.github/workflows/deploy-pages.yml`.
+
+1. Push to `master` / `main` (or run the workflow manually).
+2. Repo **Settings → Pages → Source: GitHub Actions**.
+3. Site: `https://tiennhm.github.io/tin-ai-lens/`  
+   Privacy: `https://tiennhm.github.io/tin-ai-lens/privacy/`
+
+Local static build with Pages base path (Git Bash / CI):
+
+```bash
+cd apps/web
+NEXT_PUBLIC_BASE_PATH=/tin-ai-lens pnpm build
+# output in apps/web/out
+```
+
 ## Run locally
 
 ### Extension (community / BYOK — recommended)

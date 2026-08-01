@@ -6,7 +6,7 @@
   "type": "module",
   "description": "Think Before You Trust — explainable trust signals for the page you're reading.",
   "author": "TinAiLens",
-  "homepage": "https://tinailens.com",
+  "homepage": "https://tiennhm.github.io/tin-ai-lens/",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",

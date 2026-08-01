@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "next dev --port 3000",
     "build": "next build",
+    "build:pages": "next build",
     "start": "next start --port 3000",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint . --max-warnings 0",
     "test": "node -e \"process.exit(0)\"",
-    "clean": "rimraf .next"
+    "clean": "rimraf .next out"
   },
   "dependencies": {
     "next": "^15.5.2",

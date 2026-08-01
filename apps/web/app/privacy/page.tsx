@@ -109,6 +109,13 @@ export default function PrivacyPage() {
             >
               privacy@tinailens.com
             </a>
+            . Site:{" "}
+            <a
+              className="text-pine hover:underline"
+              href="https://tiennhm.github.io/tin-ai-lens/"
+            >
+              tiennhm.github.io/tin-ai-lens
+            </a>
             .
           </p>
         </section>

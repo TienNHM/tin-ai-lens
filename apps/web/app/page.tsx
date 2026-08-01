@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function HeroLensVisual() {
   return (
     <div
@@ -127,9 +129,9 @@ export default function HomePage() {
             Free for the community: bring your own Gemini or OpenAI API key in
             extension Settings. Analysis runs on your device against your
             provider — see our{" "}
-            <a href="/privacy" className="text-pine hover:underline">
+            <Link href="/privacy/" className="text-pine hover:underline">
               Privacy Policy
-            </a>
+            </Link>
             .
           </p>
         </div>
@@ -159,9 +161,9 @@ export default function HomePage() {
             TinAiLens
           </p>
           <div className="flex flex-wrap items-center gap-4 text-sm text-ink-soft">
-            <a href="/privacy" className="transition hover:text-pine">
+            <Link href="/privacy/" className="transition hover:text-pine">
               Privacy
-            </a>
+            </Link>
             <span>Think Before You Trust. Explain. Never judge.</span>
           </div>
         </div>

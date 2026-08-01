@@ -13,7 +13,8 @@ Conflict rule (unchanged): **Vision → MVP cut → PRD detail → AI contract**
 Related non-docs:
 
 - Extension Chrome Store pack: [`apps/extension/store/LISTING.md`](../apps/extension/store/LISTING.md)
-- Public privacy page: `apps/web` → `/privacy`
+- Public privacy page: https://tiennhm.github.io/tin-ai-lens/privacy/ (after Pages deploy)
+- Landing: https://tiennhm.github.io/tin-ai-lens/
 
 ## Shipping snapshot (community)
 

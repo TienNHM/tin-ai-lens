@@ -69,13 +69,13 @@ Send analyze requests to Gemini using the user’s own API key.
 Send analyze requests to OpenAI using the user’s own API key (optional provider).
 
 ## Privacy policy URL
-Deploy `apps/web` and use:
+After GitHub Pages is enabled:
 
-`https://<your-domain>/privacy`
+`https://tiennhm.github.io/tin-ai-lens/privacy/`
 
-Example local: `http://localhost:3000/privacy` (Store requires a public HTTPS URL).
+(Or your custom domain + `/privacy/`.)
 
-Update the contact email in that page if you use a different address than `privacy@tinailens.com`.
+Update the contact email on that page if you use a different address than `privacy@tinailens.com`.
 
 ## Assets checklist
 
