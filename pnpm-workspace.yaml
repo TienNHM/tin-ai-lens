@@ -3,7 +3,7 @@ packages:
   - "packages/*"
 
 # pnpm v11 build-script policy.
-# Plasmo/Parcel needs native postinstall binaries; keep unrelated scripts denied.
+# Plasmo/Parcel/Next tooling needs a few native postinstall binaries.
 allowBuilds:
   "@parcel/watcher": true
   "@scarf/scarf": false
@@ -12,6 +12,7 @@ allowBuilds:
   lmdb: true
   msgpackr-extract: true
   sharp: true
+  unrs-resolver: true
 
 minimumReleaseAgeExclude:
   - "@ai-sdk/anthropic@4.0.27"
