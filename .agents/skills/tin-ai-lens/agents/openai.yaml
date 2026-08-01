@@ -1,0 +1,6 @@
+interface:
+  display_name: "Tin Ai Lens"
+  short_description: "Repo-specific patterns and workflows for tin-ai-lens"
+  default_prompt: "Use the tin-ai-lens repo skill to follow existing architecture, testing, and workflow conventions."
+policy:
+  allow_implicit_invocation: true
