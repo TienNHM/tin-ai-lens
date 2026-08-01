@@ -9,8 +9,44 @@ export interface ByokSettings {
 
 const DEFAULT_PROVIDER: ByokProvider = "google";
 
+/** Origins requested at save/analyze time (optional_host_permissions). */
+export const PROVIDER_HOST_ORIGINS: Record<ByokProvider, string> = {
+  google: "https://generativelanguage.googleapis.com/*",
+  openai: "https://api.openai.com/*",
+};
+
+export class ByokHostPermissionError extends Error {
+  constructor(message = "Host permission denied") {
+    super(message);
+    this.name = "ByokHostPermissionError";
+  }
+}
+
 function isProvider(value: unknown): value is ByokProvider {
   return value === "google" || value === "openai";
+}
+
+/** Ask Chrome for the provider API host (must run from a user gesture). */
+export async function ensureProviderHostPermission(
+  provider: ByokProvider,
+): Promise<boolean> {
+  const origins = [PROVIDER_HOST_ORIGINS[provider]];
+  try {
+    const already = await chrome.permissions.contains({ origins });
+    if (already) return true;
+    return await chrome.permissions.request({ origins });
+  } catch {
+    return false;
+  }
+}
+
+export async function revokeProviderHostPermissions(): Promise<void> {
+  const origins = Object.values(PROVIDER_HOST_ORIGINS);
+  try {
+    await chrome.permissions.remove({ origins });
+  } catch {
+    // Ignore — permission may already be absent.
+  }
 }
 
 export async function getByokSettings(): Promise<ByokSettings | null> {
@@ -44,6 +80,7 @@ export async function setByokSettings(settings: ByokSettings): Promise<void> {
 
 export async function clearByokSettings(): Promise<void> {
   await chrome.storage.local.remove(STORAGE_KEY);
+  await revokeProviderHostPermissions();
 }
 
 export function defaultByokProvider(): ByokProvider {

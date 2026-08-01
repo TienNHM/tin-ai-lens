@@ -110,14 +110,16 @@ Lưu ngôn ngữ, API key BYOK (nếu có) và lịch sử Trust Report trên m�
 
 ### 6. Host permissions / Quyền phía máy chủ
 
-Hosts: `https://generativelanguage.googleapis.com/*`, `https://api.openai.com/*`
+Manifest dùng **`optional_host_permissions`** (không khai sẵn `host_permissions`).  
+Hosts (xin khi user Lưu key / Phân tích):  
+`https://generativelanguage.googleapis.com/*`, `https://api.openai.com/*`
 
 ```
-Host permissions are limited to Google Generative Language (Gemini) and OpenAI API endpoints so the extension can send the extracted page text to the AI provider the user selected, using the user’s own API key, and receive a JSON Trust Report. Page content is not sent to TinAiLens servers.
+Optional host permissions are limited to Google Generative Language (Gemini) and OpenAI API endpoints. They are requested only when the user saves a BYOK key or analyzes, so the extension can send extracted page text with the user’s own API key and receive a JSON Trust Report. Page content is not sent to TinAiLens servers. We do not use broad <all_urls> access.
 ```
 
 ```
-Chỉ gọi endpoint Gemini (Google) và OpenAI để gửi nội dung trang đã trích xuất bằng API key của người dùng và nhận JSON Trust Report. Không gửi nội dung trang lên server TinAiLens.
+Quyền máy chủ là optional: chỉ endpoint Gemini và OpenAI, xin khi user lưu API key hoặc phân tích. Gửi nội dung trang bằng key của user, nhận JSON Trust Report. Không gửi lên server TinAiLens. Không dùng <all_urls>.
 ```
 
 ### 7. Data usage / Sử dụng dữ liệu (checkbox công khai)
@@ -225,4 +227,4 @@ TinAiLens analyzes the active tab only on explicit user gesture. Users bring the
 
 ## Version
 
-Bump `version` in `apps/extension/package.json` for each Store upload (e.g. `0.1.0` → `0.1.1`).
+Bump `version` in `apps/extension/package.json` for each Store upload (e.g. `0.1.1` → `0.1.2`).

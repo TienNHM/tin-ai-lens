@@ -59,6 +59,7 @@ export type MessageKey =
   | "byokCleared"
   | "byokKeyRequired"
   | "byokMissing"
+  | "byokPermissionDenied"
   | "byokConnected"
   | "byokSetup";
 
@@ -106,7 +107,7 @@ const vi: Record<MessageKey, string> = {
   viewingHistory: "Đang xem từ lịch sử",
   settings: "Cài đặt",
   byokPrivacy:
-    "Key chỉ lưu trên máy bạn. Extension gọi thẳng Gemini/OpenAI — không qua server TinAiLens.",
+    "Key chỉ lưu trên máy bạn. Khi Lưu, Chrome sẽ hỏi quyền gọi Gemini/OpenAI — không qua server TinAiLens.",
   byokProvider: "Nhà cung cấp",
   byokProviderGoogle: "Google Gemini (khuyến nghị, có free tier)",
   byokProviderOpenai: "OpenAI",
@@ -121,6 +122,8 @@ const vi: Record<MessageKey, string> = {
   byokCleared: "Đã xóa API key.",
   byokKeyRequired: "Nhập API key để lưu.",
   byokMissing: "Chưa có API key. Mở Cài đặt để kết nối Gemini hoặc OpenAI.",
+  byokPermissionDenied:
+    "Cần cho phép quyền truy cập API (Gemini/OpenAI) trong hộp thoại Chrome để phân tích.",
   byokConnected: "Đã kết nối",
   byokSetup: "Kết nối API key",
 };
@@ -169,7 +172,7 @@ const en: Record<MessageKey, string> = {
   viewingHistory: "Viewing from history",
   settings: "Settings",
   byokPrivacy:
-    "Your key stays on this device. The extension calls Gemini/OpenAI directly — not via TinAiLens servers.",
+    "Your key stays on this device. On Save, Chrome asks permission to call Gemini/OpenAI — not via TinAiLens servers.",
   byokProvider: "Provider",
   byokProviderGoogle: "Google Gemini (recommended, free tier)",
   byokProviderOpenai: "OpenAI",
@@ -184,6 +187,8 @@ const en: Record<MessageKey, string> = {
   byokCleared: "API key removed.",
   byokKeyRequired: "Enter an API key to save.",
   byokMissing: "No API key yet. Open Settings to connect Gemini or OpenAI.",
+  byokPermissionDenied:
+    "Allow API access (Gemini/OpenAI) in the Chrome prompt so analysis can run.",
   byokConnected: "Connected",
   byokSetup: "Connect API key",
 };

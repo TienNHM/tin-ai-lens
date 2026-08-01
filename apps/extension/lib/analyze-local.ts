@@ -3,7 +3,11 @@
 import { analyzeWithUserKey } from "../../../packages/ai/src/browser-analyze";
 import type { AnalyzeRequest, AnalyzeResponse } from "@tin-ai-lens/types";
 
-import { getByokSettings } from "~/lib/byok";
+import {
+  ByokHostPermissionError,
+  ensureProviderHostPermission,
+  getByokSettings,
+} from "~/lib/byok";
 
 export class ByokMissingError extends Error {
   constructor(message = "API key required") {
@@ -11,6 +15,8 @@ export class ByokMissingError extends Error {
     this.name = "ByokMissingError";
   }
 }
+
+export { ByokHostPermissionError };
 
 /**
  * Analyze in the extension using the user's BYOK settings (no TinAiLens server).
@@ -21,6 +27,11 @@ export async function analyzeLocal(
   const settings = await getByokSettings();
   if (!settings) {
     throw new ByokMissingError();
+  }
+
+  const granted = await ensureProviderHostPermission(settings.provider);
+  if (!granted) {
+    throw new ByokHostPermissionError();
   }
 
   return analyzeWithUserKey(request, {

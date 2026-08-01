@@ -6,6 +6,7 @@ import {
   BYOK_KEY_URLS,
   clearByokSettings,
   defaultByokProvider,
+  ensureProviderHostPermission,
   getByokSettings,
   maskApiKey,
   setByokSettings,
@@ -45,6 +46,13 @@ export function SettingsPanel({
         setStatus(t(locale, "byokKeyRequired"));
         return;
       }
+
+      const granted = await ensureProviderHostPermission(provider);
+      if (!granted) {
+        setStatus(t(locale, "byokPermissionDenied"));
+        return;
+      }
+
       if (keyToSave) {
         await setByokSettings({ provider, apiKey: keyToSave });
         setSavedMasked(maskApiKey(keyToSave));

@@ -7,6 +7,7 @@ import { SettingsPanel } from "~/components/SettingsPanel";
 import { TrustReportView } from "~/components/TrustReportView";
 import {
   analyzeLocal,
+  ByokHostPermissionError,
   ByokMissingError,
   newRequestId,
 } from "~/lib/analyze-local";
@@ -34,7 +35,7 @@ type UiState =
 
 type View = "main" | "history" | "settings";
 
-const EXT_VERSION = "0.1.0";
+const EXT_VERSION = "0.1.1";
 
 function IndexPopup() {
   const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE);
@@ -138,6 +139,11 @@ function IndexPopup() {
       setState("error");
       if (err instanceof ByokMissingError) {
         setError(t(locale, "byokMissing"));
+        setView("settings");
+        return;
+      }
+      if (err instanceof ByokHostPermissionError) {
+        setError(t(locale, "byokPermissionDenied"));
         setView("settings");
         return;
       }
