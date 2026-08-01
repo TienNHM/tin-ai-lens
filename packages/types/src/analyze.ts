@@ -3,6 +3,11 @@ import { z } from "zod";
 import { AnalysisStatusSchema } from "./enums.js";
 import { ModelMetaSchema, TrustReportSchema } from "./trust-report.js";
 
+/** UI + report output locale. Vietnamese is the product default. */
+export const LocaleSchema = z.enum(["vi", "en"]);
+export type Locale = z.infer<typeof LocaleSchema>;
+export const DEFAULT_LOCALE: Locale = "vi";
+
 export const ExtractedMetaSchema = z.object({
   author: z.string().max(300).optional(),
   byline: z.string().max(500).optional(),
@@ -15,7 +20,10 @@ export const AnalyzeRequestSchema = z.object({
   url: z.string().url(),
   title: z.string().min(1).max(500),
   markdown: z.string().min(1).max(200_000),
+  /** Page content language hint (BCP 47), if known */
   language: z.string().min(2).max(35).optional(),
+  /** Preferred language for Trust Report prose + UI */
+  locale: LocaleSchema.default(DEFAULT_LOCALE),
   extensionVersion: z.string().min(1).max(50),
   extractedMeta: ExtractedMetaSchema.optional(),
 });

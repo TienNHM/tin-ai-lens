@@ -74,10 +74,15 @@ function applyCoverageHints(
   report: TrustReport,
   truncated: boolean,
   coverageRatio: number,
+  locale: "vi" | "en",
 ): TrustReport {
   const warnings = [...report.warnings];
-  if (truncated && !warnings.some((w) => /truncat/i.test(w))) {
-    warnings.push("Page content was truncated for analysis; coverage is partial.");
+  if (truncated && !warnings.some((w) => /truncat|cắt ngắn/i.test(w))) {
+    warnings.push(
+      locale === "vi"
+        ? "Nội dung trang đã bị cắt ngắn để phân tích; độ bao phủ chỉ một phần."
+        : "Page content was truncated for analysis; coverage is partial.",
+    );
   }
 
   return {
@@ -142,11 +147,13 @@ export async function analyzeContent(
   }
 
   const truncated = truncateMarkdown(trimmed, config.maxMarkdownChars);
+  const locale = request.locale ?? "vi";
   const userPrompt = buildAnalyzeUserPrompt({
     url: request.url,
     title: request.title,
     markdown: truncated.markdown,
     language: request.language,
+    locale,
     extractedMeta: request.extractedMeta,
     truncated: truncated.truncated,
     coverageRatio: truncated.coverageRatio,
@@ -181,6 +188,7 @@ export async function analyzeContent(
         finalizeReport(attempt.object, truncated.markdown),
         truncated.truncated,
         truncated.coverageRatio,
+        locale,
       );
       return AnalyzeResponseSchema.parse({
         status: "ready",
@@ -204,6 +212,7 @@ export async function analyzeContent(
           finalizeReport(attempt.object, truncated.markdown),
           truncated.truncated,
           truncated.coverageRatio,
+          locale,
         );
         return AnalyzeResponseSchema.parse({
           status: "ready",

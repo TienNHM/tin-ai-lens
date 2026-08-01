@@ -1,4 +1,4 @@
-/** Verdict-style patterns forbidden in user-facing AI output. */
+/** Verdict-style patterns forbidden in user-facing AI output (en + vi). */
 export const BANNED_PHRASE_PATTERNS: RegExp[] = [
   /\bthis is fake\b/i,
   /\bthis is true\b/i,
@@ -11,6 +11,16 @@ export const BANNED_PHRASE_PATTERNS: RegExp[] = [
   /\bdisinformation confirmed\b/i,
   /\byou should believe\b/i,
   /\byou must ignore\b/i,
+  /đây là tin giả/i,
+  /đây là thật/i,
+  /đây là sai/i,
+  /đây là giả/i,
+  /được tạo bởi ai/i,
+  /do ai viết/i,
+  /phát hiện ai/i,
+  /tuyên truyền đã xác nhận/i,
+  /bạn nên tin/i,
+  /bạn phải bỏ qua/i,
 ];
 
 export interface PolicyHit {

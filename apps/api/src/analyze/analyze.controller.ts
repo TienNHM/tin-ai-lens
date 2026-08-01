@@ -36,6 +36,7 @@ export class AnalyzeController {
         title: { type: "string" },
         markdown: { type: "string" },
         language: { type: "string" },
+        locale: { type: "string", enum: ["vi", "en"], default: "vi" },
         extensionVersion: { type: "string" },
         extractedMeta: {
           type: "object",

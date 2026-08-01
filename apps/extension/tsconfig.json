@@ -29,6 +29,7 @@
   },
   "include": [
     ".plasmo/index.d.ts",
+    "css.d.ts",
     "./**/*.ts",
     "./**/*.tsx"
   ],

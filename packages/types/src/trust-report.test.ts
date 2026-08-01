@@ -120,6 +120,19 @@ describe("AnalyzeRequestSchema", () => {
       extractedMeta: { author: "Ada", siteName: "Example" },
     });
     assert.match(parsed.url, /example\.com/);
+    assert.equal(parsed.locale, "vi");
+  });
+
+  it("accepts explicit english locale", () => {
+    const parsed = AnalyzeRequestSchema.parse({
+      requestId: "550e8400-e29b-41d4-a716-446655440000",
+      url: "https://example.com/article",
+      title: "Example Article",
+      markdown: "# Hello\n\nBody text.",
+      extensionVersion: "0.1.0",
+      locale: "en",
+    });
+    assert.equal(parsed.locale, "en");
   });
 });
 
