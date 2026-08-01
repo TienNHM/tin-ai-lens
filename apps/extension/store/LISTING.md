@@ -51,22 +51,121 @@ Productivity (or News & Magazines — pick one; Productivity is usual for assist
 ### Language
 English (primary). UI also supports Vietnamese.
 
-## Single purpose
-Help people evaluate trustworthiness of web articles by explaining trust signals, uncertainty, and verification steps.
+## Privacy practices tab (Phương thức bảo vệ quyền riêng tư)
 
-## Permission justifications (Dashboard prompts)
+Mở thẻ **Phương thức bảo vệ quyền riêng tư** → điền lần lượt → **Lưu bản nháp**.
 
-**activeTab / scripting / access to website content**  
-Required to extract readable text from the tab the user chooses to analyze, only after they click Analyze.
+### 1. Single purpose / Mục đích duy nhất
 
-**storage**  
-Store locale, BYOK API key, and optional local Trust Report history on the user’s device.
+```
+Help users evaluate trustworthiness of the webpage they are reading by extracting page text on user gesture and generating an explainable Trust Report (signals, claims, suggestions) via the user’s own Gemini or OpenAI API key. Not a fake-news oracle or AI-authorship detector.
+```
 
-**Host permission — Google Generative Language API**  
-Send analyze requests to Gemini using the user’s own API key.
+(VI — nếu form yêu cầu tiếng Việt)
 
-**Host permission — OpenAI API**  
-Send analyze requests to OpenAI using the user’s own API key (optional provider).
+```
+Giúp người dùng đánh giá độ tin cậy của trang đang đọc: khi họ bấm Phân tích, extension trích xuất nội dung và tạo Trust Report có giải thích (tín hiệu, khẳng định, gợi ý) bằng API key Gemini/OpenAI của chính họ. Không phải công cụ phán quyết tin giả hay detector AI.
+```
+
+### 2. Remote code / Mã từ xa
+
+**Khuyến nghị:** chọn **Không** — TinAiLens **không** tải/chạy JavaScript từ xa. Extension chỉ gọi API để nhận JSON báo cáo.
+
+Nếu đã chọn Có nhầm, đổi thành **Không**.  
+Nếu form bắt buộc nhập lý do khi chọn Có (không nên), dùng:
+
+```
+The extension does not execute remote JavaScript. It only sends page text to Google Gemini or OpenAI HTTPS APIs (using the user’s own API key) and receives JSON Trust Report data to render locally. No remote scripts are downloaded or evaluated.
+```
+
+### 3. Permission: activeTab
+
+```
+Used only after the user clicks Analyze, so the extension can access the active tab and extract readable article text for the Trust Report. Not used for background browsing surveillance.
+```
+
+```
+Chỉ dùng khi người dùng bấm Phân tích, để truy cập tab đang mở và trích xuất nội dung bài đọc cho Trust Report. Không theo dõi duyệt web nền.
+```
+
+### 4. Permission: scripting
+
+```
+Required to run the content-script extraction (Readability → markdown) in the active page context when the user requests analysis, so we can obtain readable page text.
+```
+
+```
+Cần để chạy script trích xuất nội dung (Readability → markdown) trong ngữ cảnh trang khi người dùng yêu cầu phân tích.
+```
+
+### 5. Permission: storage
+
+```
+Stores the user’s locale preference, optional BYOK API key, and local Trust Report history on the device via chrome.storage.local. No cloud sync of this data by TinAiLens.
+```
+
+```
+Lưu ngôn ngữ, API key BYOK (nếu có) và lịch sử Trust Report trên máy qua chrome.storage.local. TinAiLens không đồng bộ cloud dữ liệu này.
+```
+
+### 6. Host permissions / Quyền phía máy chủ
+
+Hosts: `https://generativelanguage.googleapis.com/*`, `https://api.openai.com/*`
+
+```
+Host permissions are limited to Google Generative Language (Gemini) and OpenAI API endpoints so the extension can send the extracted page text to the AI provider the user selected, using the user’s own API key, and receive a JSON Trust Report. Page content is not sent to TinAiLens servers.
+```
+
+```
+Chỉ gọi endpoint Gemini (Google) và OpenAI để gửi nội dung trang đã trích xuất bằng API key của người dùng và nhận JSON Trust Report. Không gửi nội dung trang lên server TinAiLens.
+```
+
+### 7. Data usage / Sử dụng dữ liệu (checkbox công khai)
+
+Chọn **đúng 3** loại sau (các loại còn lại **không** chọn):
+
+| Loại | Chọn? | Lý do |
+| --- | --- | --- |
+| Thông tin nhận dạng cá nhân | Không | Không thu tên/email/địa chỉ |
+| Thông tin sức khỏe | Không | — |
+| Thông tin thanh toán và tài chính | Không | — |
+| **Thông tin xác thực** | **Có** | Lưu API key BYOK (Gemini/OpenAI) trên máy |
+| Thông tin liên lạc cá nhân | Không | — |
+| Thông tin vị trí | Không | Không thu GPS/IP cho mục đích của extension |
+| **Lịch sử duyệt web** | **Có** | Lưu URL + tiêu đề + thời điểm của trang **user chủ động Phân tích** (lịch sử local) |
+| Hoạt động của người dùng | Không | Không theo dõi click/cuộn/phím/network monitoring |
+| **Nội dung trang web** | **Có** | Trích xuất văn bản trang để tạo Trust Report |
+
+**3 chứng nhận bắt buộc** — tick **cả 3**:
+1. Không bán / chuyển dữ liệu ngoài trường hợp đã được phê duyệt  
+2. Không dùng / chuyển dữ liệu ngoài mục đích duy nhất của extension  
+3. Không dùng dữ liệu để chấm điểm tín dụng / cho vay  
+
+Gửi nội dung trang + API key tới Gemini/OpenAI là **trường hợp sử dụng được phê duyệt** (cần thiết cho mục đích duy nhất), không phải “bán dữ liệu”.
+
+Nếu form hỏi thêm từng loại dữ liệu (mục đích / mã hóa / bên thứ ba), dùng:
+
+| Câu hỏi | Gợi ý |
+| --- | --- |
+| Mục đích | Chức năng của sản phẩm (analyze / Trust Report) |
+| Mã hóa khi truyền | Có (HTTPS tới Gemini/OpenAI) |
+| Bán dữ liệu | Không |
+| Chuyển bên thứ ba | Có — Google Gemini và/hoặc OpenAI theo lựa chọn của user |
+| Dùng cho quảng cáo / theo dõi | Không |
+| Privacy policy URL | `https://tiennhm.github.io/tin-ai-lens/privacy/` |
+
+Certify note (nếu cần):
+
+```
+I certify that TinAiLens’s data use complies with the Chrome Web Store Developer Program Policies. Page content is processed only on explicit user action and sent only to the AI provider chosen by the user (Gemini/OpenAI) with their own key. Local storage holds settings, key, and Trust Reports without full page bodies. We do not sell user data or use it for advertising.
+```
+
+## Permission justifications (short — Dashboard prompts)
+
+**activeTab** — See § Privacy practices #3.  
+**scripting** — See #4.  
+**storage** — See #5.  
+**Host permissions** — See #6.
 
 ## Privacy policy URL
 After GitHub Pages is enabled:
@@ -81,20 +180,35 @@ Update the contact details on that page if needed. Current contact: [facebook.co
 
 | Asset | Spec | Status |
 | --- | --- | --- |
-| Extension icon | 128×128 PNG (`assets/icon.png`) | In repo; Plasmo generates size variants |
-| Store icon | 128×128 | Same as extension icon |
-| Screenshots | ≥1, ideally 1280×800 or 640×400 | Capture from popup (Settings + Trust Report) — see below |
-| Small promo (optional) | 440×280 | Optional for first submit |
-| Marquee promo (optional) | 1400×560 | Optional |
+| Extension icon | 128×128 PNG (`assets/icon.png`) | Ready |
+| Store icon | 128×128 (`store/icon-128.png`) | Ready |
+| Screenshots | 1280×800 PNG | Ready — upload `store-*.png` below |
 
-### Screenshots to capture (manual)
+### Screenshots (upload these — max 5)
 
-1. Popup main — Analyze + VI/EN (article page open behind).
-2. Settings — Gemini selected, privacy note visible.
-3. Trust Report — score, reasons, signals filled.
-4. History — list of past reports (optional).
+Chrome Web Store requires:
+- **Max 5** images
+- **1280×800** or **640×400**
+- **JPEG or 24-bit PNG (no alpha)**
+- At least 1
 
-Save under `apps/extension/store/screenshots/` (create folder; do not commit secrets).
+Path: `apps/extension/store/screenshots/upload/`
+
+| # | File | Shows |
+| --- | --- | --- |
+| 1 | `01-main-popup.png` | Main popup (VI) |
+| 2 | `02-settings-byok.png` | BYOK Settings |
+| 3 | `03-trust-score.png` | Trust Score + summary |
+| 4 | `04-signals-claims.png` | Signals + claims |
+| 5 | `05-suggestions.png` | Suggestions + uncertainty |
+
+All are **1280×800**, **RGB / 24-bit PNG** (no alpha). Upload in this order.
+
+Regenerate:
+
+```bash
+python apps/extension/scripts/pad-store-screenshots.py
+```
 
 ## Review notes (paste for reviewer)
 
